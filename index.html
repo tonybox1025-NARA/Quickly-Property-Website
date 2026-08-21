@@ -251,6 +251,15 @@
     text-shadow:0 2px 30px rgba(15,21,38,0.5);
   }
   .hero-title em{font-style:italic;font-weight:600;color:var(--gold-soft);}
+  .hero-title .htl{display:block;}
+  .hero-title .l2{padding-left:1.1em;}
+  .hero-title .l3{padding-left:2.7em;}
+  .hero-title .ch{opacity:0;transition:opacity .18s ease;}
+  .hero-title .ch.on{opacity:1;}
+  @media (max-width:640px){
+    .hero-title .l2{padding-left:0.7em;}
+    .hero-title .l3{padding-left:1.7em;}
+  }
   .type-caret{
     display:inline-block;width:0.045em;height:0.78em;background:var(--gold-soft);
     margin-left:0.04em;vertical-align:-0.06em;border-radius:2px;
@@ -663,7 +672,7 @@
       <div class="stamp"><span data-i18n="hero.stampLabel">8 Residences, Privately Held</span><strong data-thb="THB 90,000,000" data-usd="USD 2,470,000">THB 90,000,000</strong></div>
     </div>
 
-    <h1 class="hero-title" id="heroTitle" data-i18n-html="hero.title">&ldquo;A house that feels different at <em>every</em> hour of the day.&rdquo;</h1>
+    <h1 class="hero-title" id="heroTitle" data-i18n-html="hero.title"><span class="htl l1">&ldquo;A house that feels</span><span class="htl l2">different at <em>every</em> hour</span><span class="htl l3">of the day.&rdquo;</span></h1>
 
     <div class="hero-sub">
       <div class="field"><span data-i18n="label.status">Status</span><b data-i18n="value.status">Completed · 2024</b></div>
@@ -1035,33 +1044,35 @@ const CODES = {en:'EN',th:'TH',ko:'KO',zh:'中文',ja:'日本'};
 function typeTitle(html){
   const el = document.getElementById('heroTitle');
   if(!el) return;
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if(reduce){ el.innerHTML = html; return; }
-  // flatten to a char list, remembering which chars belong in the emphasised word
-  const tmp = document.createElement('div'); tmp.innerHTML = html;
-  const chars = [];
-  tmp.childNodes.forEach(node=>{
-    const em = node.nodeName.toLowerCase()==='em';
-    for(const ch of node.textContent){ chars.push({ch, em}); }
-  });
   clearInterval(el._typer);
-  el.innerHTML = '';
+  el.innerHTML = html; // keep the full structure (lines, indents, <em>) laid out
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if(reduce) return;
+  // wrap every character in its own span so we can reveal them one by one
+  const textNodes = [];
+  const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+  let tn; while((tn = walker.nextNode())) textNodes.push(tn);
+  const chars = [];
+  textNodes.forEach(node=>{
+    const frag = document.createDocumentFragment();
+    for(const ch of node.nodeValue){
+      const s = document.createElement('span'); s.className = 'ch';
+      s.textContent = ch; frag.appendChild(s); chars.push(s);
+    }
+    node.parentNode.replaceChild(frag, node);
+  });
+  if(!chars.length) return;
   const caret = document.createElement('span'); caret.className = 'type-caret';
-  el.appendChild(caret);
-  let i = 0, cur = null, curEm = null;
+  let i = 0;
   el._typer = setInterval(()=>{
     if(i >= chars.length){
       clearInterval(el._typer);
       setTimeout(()=>{ if(caret.parentNode) caret.remove(); }, 1100);
       return;
     }
-    const {ch, em} = chars[i++];
-    if(cur === null || em !== curEm){
-      cur = em ? document.createElement('em') : document.createTextNode('');
-      el.insertBefore(cur, caret);
-      curEm = em;
-    }
-    cur.textContent += ch;
+    chars[i].classList.add('on');
+    chars[i].after(caret);
+    i++;
   }, 46);
 }
 
