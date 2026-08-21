@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aurelia Grove — Quickly Property</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0F1526;
+    --navy-2:#161F38;
+    --ivory:#F6F0E2;
+    --ivory-dim:#CBC0A6;
+    --gold:#E3A542;
+    --gold-soft:#F2C877;
+    --ember:#D6553C;
+    --line:rgba(246,240,226,0.13);
+    --line-strong:rgba(246,240,226,0.26);
+    --serif:'Spectral', Georgia, serif;
+    --sans:'Manrope', -apple-system, sans-serif;
+    --mono:'Space Mono', 'Courier New', monospace;
+  }
+
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    background:var(--navy);color:var(--ivory);
+    font-family:var(--sans);font-weight:300;line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;text-decoration:none;}
+  ::selection{background:var(--gold);color:var(--navy);}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+
+  /* ---------- header ---------- */
+  header.site{
+    position:fixed;top:0;left:0;right:0;z-index:100;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:26px 40px;
+    background:linear-gradient(to bottom, rgba(15,21,38,0.94), rgba(15,21,38,0));
+    backdrop-filter:blur(2px);
+  }
+  .mark{display:flex;align-items:center;gap:12px;}
+  .mark span.name{
+    display:block;font-family:var(--serif);font-style:italic;font-weight:500;
+    font-size:19px;letter-spacing:0.01em;
+  }
+  .mark small{
+    display:block;font-family:var(--mono);font-size:9px;letter-spacing:0.2em;
+    color:var(--ivory-dim);text-transform:uppercase;margin-top:2px;
+  }
+  nav.primary{display:flex;align-items:center;gap:34px;}
+  nav.primary a{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
+    text-transform:uppercase;color:var(--ivory-dim);
+    transition:color .25s ease;
+  }
+  nav.primary a:hover{color:var(--gold-soft);}
+  .btn-enquire{
+    border:1px solid var(--gold);color:var(--gold-soft);
+    padding:10px 20px;border-radius:2px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+    transition:all .25s ease;
+  }
+  .btn-enquire:hover{background:var(--gold);color:var(--navy);}
+  @media (max-width:820px){
+    nav.primary a:not(.btn-enquire){display:none;}
+    header.site{padding:20px 22px;}
+  }
+
+  /* ---------- hero ---------- */
+  .hero{
+    position:relative;min-height:100vh;
+    display:flex;flex-direction:column;justify-content:flex-end;
+    padding:0 40px 70px;overflow:hidden;border-bottom:1px solid var(--line);
+  }
+  .hero-glow{
+    position:absolute;inset:0;z-index:0;
+    background:
+      radial-gradient(60% 45% at 78% 8%, rgba(227,165,66,0.28), transparent 60%),
+      radial-gradient(50% 40% at 15% 30%, rgba(214,85,60,0.14), transparent 60%),
+      linear-gradient(180deg, var(--navy) 0%, var(--navy-2) 60%, var(--navy) 100%);
+  }
+  .hero-roofline{position:absolute;left:0;right:0;bottom:0;z-index:0;opacity:0.5;}
+  .hero-roofline svg{width:100%;height:auto;display:block;}
+  .hero-top{
+    position:relative;z-index:2;display:flex;justify-content:space-between;
+    align-items:flex-start;padding-top:150px;flex-wrap:wrap;gap:20px;
+  }
+  .eyebrow{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;text-transform:uppercase;
+    color:var(--gold-soft);display:flex;align-items:center;gap:10px;
+  }
+  .eyebrow::before{content:"";width:22px;height:1px;background:var(--gold-soft);}
+  .stamp{
+    text-align:right;font-family:var(--mono);font-size:11px;color:var(--ivory-dim);
+    border:1px solid var(--line-strong);border-radius:2px;padding:12px 16px;letter-spacing:0.05em;
+  }
+  .stamp strong{
+    display:block;font-family:var(--serif);font-style:italic;font-weight:500;font-size:20px;
+    color:var(--ivory);letter-spacing:0.01em;margin-top:4px;
+  }
+  .hero-title{
+    position:relative;z-index:2;font-family:var(--serif);font-weight:300;
+    font-size:clamp(42px,7vw,92px);line-height:1.03;letter-spacing:-0.01em;
+    margin-top:56px;max-width:880px;
+  }
+  .hero-title em{font-style:italic;font-weight:500;color:var(--gold-soft);}
+  .hero-sub{
+    position:relative;z-index:2;display:flex;flex-wrap:wrap;gap:30px 46px;
+    margin-top:44px;padding-top:26px;border-top:1px solid var(--line);
+  }
+  .hero-sub .field{font-family:var(--mono);font-size:11px;color:var(--ivory-dim);letter-spacing:0.06em;}
+  .hero-sub .field b{
+    display:block;font-family:var(--sans);font-weight:500;font-size:16px;
+    color:var(--ivory);margin-top:6px;letter-spacing:0;
+  }
+
+  /* ---------- section shell ---------- */
+  section{padding:110px 0;border-bottom:1px solid var(--line);}
+  .section-head{
+    display:flex;justify-content:space-between;align-items:flex-end;
+    gap:24px;margin-bottom:56px;flex-wrap:wrap;
+  }
+  .section-head .tag{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.18em;
+    text-transform:uppercase;color:var(--gold-soft);
+  }
+  .section-head h2{
+    font-family:var(--serif);font-weight:300;font-size:clamp(30px,3.6vw,44px);
+    margin-top:10px;max-width:640px;
+  }
+  .section-head h2 em{font-style:italic;color:var(--gold-soft);}
+  .section-head p{max-width:340px;color:var(--ivory-dim);font-size:14px;}
+
+  /* ---------- overview ---------- */
+  .overview-grid{display:grid;grid-template-columns:1.1fr 0.9fr;gap:80px;}
+  .overview-grid p{color:var(--ivory-dim);font-size:15.5px;margin-bottom:20px;max-width:52ch;}
+  .overview-grid p.lede{
+    font-family:var(--serif);font-style:italic;font-size:23px;color:var(--ivory);
+    line-height:1.5;margin-bottom:32px;
+  }
+  .fact-col{border-left:1px solid var(--line);padding-left:40px;}
+  .fact-row{
+    display:flex;justify-content:space-between;padding:14px 0;
+    border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12.5px;letter-spacing:0.02em;
+  }
+  .fact-row span:first-child{color:var(--ivory-dim);text-transform:uppercase;letter-spacing:0.08em;font-size:10.5px;padding-top:2px;}
+  .fact-row span:last-child{color:var(--ivory);text-align:right;}
+  @media (max-width:900px){.overview-grid{grid-template-columns:1fr;gap:48px;}.fact-col{border-left:none;border-top:1px solid var(--line);padding-left:0;padding-top:32px;}}
+
+  /* ---------- arc of the day (signature) ---------- */
+  .arc-wrap{position:relative;}
+  .arc-line{width:100%;display:block;margin-bottom:-18px;}
+  .arc-moments{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:20px;position:relative;z-index:2;
+  }
+  .moment{display:flex;flex-direction:column;align-items:flex-start;padding-top:8px;}
+  .moment-dot{
+    width:11px;height:11px;border-radius:50%;background:var(--gold);
+    box-shadow:0 0 0 5px rgba(227,165,66,0.15);margin-bottom:18px;
+  }
+  .moment:nth-child(3) .moment-dot{background:var(--gold-soft);box-shadow:0 0 0 7px rgba(242,200,119,0.2);}
+  .moment-time{font-family:var(--mono);font-size:10px;letter-spacing:0.14em;text-transform:uppercase;color:var(--ivory-dim);margin-bottom:8px;}
+  .moment-room{font-family:var(--serif);font-weight:500;font-size:20px;margin-bottom:10px;line-height:1.2;}
+  .moment-desc{font-size:12.5px;color:var(--ivory-dim);line-height:1.55;}
+  @media (max-width:900px){
+    .arc-line{display:none;}
+    .arc-moments{grid-template-columns:1fr;gap:0;}
+    .moment{flex-direction:row;gap:20px;align-items:flex-start;padding:22px 0;border-bottom:1px solid var(--line);}
+    .moment-dot{margin-top:6px;margin-bottom:0;flex-shrink:0;}
+  }
+
+  /* ---------- specs / amenities ---------- */
+  .split-panel{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--line);border-radius:4px;overflow:hidden;}
+  .panel{padding:48px;}
+  .panel + .panel{border-left:1px solid var(--line);}
+  .panel h3{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
+    color:var(--gold-soft);margin-bottom:28px;
+  }
+  .spec-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line);font-size:14px;}
+  .spec-row span:first-child{color:var(--ivory-dim);}
+  .spec-row span:last-child{font-family:var(--mono);}
+  .amen-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 18px;}
+  .amen-list li{font-size:13.5px;color:var(--ivory-dim);padding-left:16px;position:relative;}
+  .amen-list li::before{content:"—";position:absolute;left:0;color:var(--gold);}
+  @media (max-width:820px){.split-panel{grid-template-columns:1fr;}.panel + .panel{border-left:none;border-top:1px solid var(--line);}}
+
+  /* ---------- location ---------- */
+  .location-block{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
+  .map-plate{
+    aspect-ratio:4/3;border:1px solid var(--line-strong);border-radius:4px;position:relative;overflow:hidden;
+    background:
+      radial-gradient(45% 45% at 50% 50%, rgba(227,165,66,0.10), transparent 70%),
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/44px 44px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/44px 44px,
+      var(--navy-2);
+  }
+  .map-plate::after{
+    content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;
+    border:1px solid var(--gold-soft);border-radius:50%;transform:translate(-50%,-50%);
+    box-shadow:0 0 0 8px rgba(227,165,66,0.10);
+  }
+  .map-plate .coord{
+    position:absolute;bottom:16px;left:16px;font-family:var(--mono);font-size:10px;
+    color:var(--ivory-dim);letter-spacing:0.05em;
+  }
+  .location-copy address{font-style:normal;color:var(--ivory-dim);font-size:14.5px;margin:18px 0 26px;line-height:1.8;}
+  .drive-list{display:flex;flex-direction:column;gap:10px;}
+  .drive-list div{display:flex;justify-content:space-between;font-size:13px;font-family:var(--mono);border-bottom:1px solid var(--line);padding-bottom:8px;color:var(--ivory-dim);}
+  .drive-list div b{color:var(--ivory);font-weight:400;}
+  @media (max-width:820px){.location-block{grid-template-columns:1fr;}}
+
+  /* ---------- advisor + form ---------- */
+  .enquire-grid{display:grid;grid-template-columns:0.8fr 1.2fr;gap:70px;}
+  .advisor-card{border:1px solid var(--line);border-radius:4px;padding:36px;height:fit-content;}
+  .advisor-avatar{
+    width:56px;height:56px;border-radius:50%;border:1px solid var(--gold);
+    display:flex;align-items:center;justify-content:center;
+    font-family:var(--serif);font-style:italic;font-size:20px;color:var(--gold-soft);margin-bottom:18px;
+  }
+  .advisor-card h4{font-family:var(--serif);font-weight:500;font-size:20px;margin-bottom:4px;}
+  .advisor-card p{color:var(--ivory-dim);font-size:13px;margin-bottom:22px;}
+  .advisor-actions{display:flex;gap:10px;flex-wrap:wrap;}
+  .advisor-actions a{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
+    border:1px solid var(--line-strong);border-radius:2px;padding:10px 16px;flex:1;text-align:center;
+    transition:all .25s ease;
+  }
+  .advisor-actions a:hover{border-color:var(--gold);color:var(--gold-soft);}
+
+  form.enquiry{display:flex;flex-direction:column;gap:20px;}
+  .form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+  .field-wrap{display:flex;flex-direction:column;gap:8px;}
+  .field-wrap label{font-family:var(--mono);font-size:10.5px;letter-spacing:0.1em;text-transform:uppercase;color:var(--ivory-dim);}
+  .field-wrap input, .field-wrap textarea{
+    background:transparent;border:none;border-bottom:1px solid var(--line-strong);
+    padding:10px 2px;color:var(--ivory);font-family:var(--sans);font-size:15px;
+    transition:border-color .25s ease;
+  }
+  .field-wrap input:focus, .field-wrap textarea:focus{outline:none;border-bottom-color:var(--gold-soft);}
+  .field-wrap textarea{resize:vertical;min-height:90px;}
+  .submit-btn{
+    margin-top:12px;align-self:flex-start;
+    background:var(--gold);color:var(--navy);border:none;border-radius:2px;
+    padding:14px 32px;font-family:var(--mono);font-size:12px;letter-spacing:0.1em;
+    text-transform:uppercase;cursor:pointer;transition:background .25s ease;
+  }
+  .submit-btn:hover{background:var(--gold-soft);}
+  .submit-btn:focus-visible, a:focus-visible, .btn-enquire:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;}
+  @media (max-width:820px){.enquire-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
+
+  /* ---------- footer ---------- */
+  footer{padding:48px 0;}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  footer .mark{opacity:0.75;}
+  footer .legal{font-family:var(--mono);font-size:10.5px;color:var(--ivory-dim);letter-spacing:0.03em;}
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="mark">
+    <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 17C4 10.4 8.8 5 15 5" stroke="#E3A542" stroke-width="1.3" stroke-linecap="round"/><circle cx="15" cy="5" r="2.4" fill="#E3A542"/><path d="M4 21H22" stroke="#E3A542" stroke-width="1" opacity="0.4" stroke-linecap="round"/></svg>
+    <div><span class="name">Quickly Property</span><small>Estate Collection</small></div>
+  </div>
+  <nav class="primary">
+    <a href="#overview">Overview</a>
+    <a href="#hours">Hours of the House</a>
+    <a href="#specs">Specification</a>
+    <a href="#location">Location</a>
+    <a class="btn-enquire" href="#enquire">Enquire</a>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-roofline" aria-hidden="true">
+    <svg viewBox="0 0 1200 200" preserveAspectRatio="none" fill="none">
+      <path d="M0 200 L0 140 L140 140 L200 90 L520 90 L580 140 L900 140 L960 60 L1200 60 L1200 200 Z" fill="#0F1526" stroke="rgba(246,240,226,0.18)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <div class="wrap" style="height:100%;display:flex;flex-direction:column;flex:1;">
+    <div class="hero-top">
+      <div class="eyebrow">Estate Collection · Bangkok</div>
+      <div class="stamp">8 Residences, Privately Held<strong>From THB 128,000,000</strong></div>
+    </div>
+
+    <h1 class="hero-title">A house that feels<br>different at <em>every</em><br>hour of the day.</h1>
+
+    <div class="hero-sub">
+      <div class="field">STATUS<b>Completed · 2025</b></div>
+      <div class="field">BEDROOMS<b>4–5</b></div>
+      <div class="field">LAND<b>16 rai 3 ngan</b></div>
+      <div class="field">SIGNATURE<b>Climate Garage · Courtyard Pool</b></div>
+    </div>
+  </div>
+</section>
+
+<section id="overview">
+  <div class="wrap">
+    <div class="overview-grid">
+      <div>
+        <p class="lede">"Most estates are designed for how they photograph. Aurelia Grove was designed for how it lives — hour to hour, light to light."</p>
+        <p>Aurelia Grove is a collection of eight three-storey pool villas set within a private soi off the Bang Na–Trat corridor, roughly eighteen minutes from Thonglor by expressway. Each residence pairs a climate-controlled two-car showroom garage with an adjoining lounge, so the collection and the living space share one continuous floor.</p>
+        <p>Above, the plan opens into a double-height living hall, a courtyard pool, and a top-floor suite with its own roof garden — a rhythm of rooms built to be lived in, not just viewed.</p>
+      </div>
+      <div class="fact-col">
+        <div class="fact-row"><span>Developer</span><span>Quickly Property</span></div>
+        <div class="fact-row"><span>District</span><span>Bang Na, Bangkok</span></div>
+        <div class="fact-row"><span>Ownership</span><span>Freehold</span></div>
+        <div class="fact-row"><span>Residences</span><span>8 villas</span></div>
+        <div class="fact-row"><span>Land / unit</span><span>16 rai 3 ngan</span></div>
+        <div class="fact-row"><span>Usable area</span><span>≈ 760 sq.m.</span></div>
+        <div class="fact-row"><span>Parking</span><span>2 showroom + 3 open</span></div>
+        <div class="fact-row"><span>Completion</span><span>2025</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="hours">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">Hours of the House</div>
+        <h2>One residence, <em>five</em> different lights.</h2>
+      </div>
+      <p>Every room at Aurelia Grove was oriented for a specific hour — this is when each one is at its best.</p>
+    </div>
+
+    <div class="arc-wrap">
+      <svg class="arc-line" viewBox="0 0 1000 60" preserveAspectRatio="none" fill="none">
+        <path d="M20 50 C 220 -10, 380 -10, 500 20 C 620 50, 780 50, 980 5" stroke="rgba(227,165,66,0.35)" stroke-width="1.2"/>
+      </svg>
+      <div class="arc-moments">
+        <div class="moment">
+          <div class="moment-dot"></div>
+          <div class="moment-time">Dawn · 06:00</div>
+          <div class="moment-room">Master Suite</div>
+          <div class="moment-desc">East-facing glazing brings first light directly into the sleeping quarter.</div>
+        </div>
+        <div class="moment">
+          <div class="moment-dot"></div>
+          <div class="moment-time">Midday · 12:00</div>
+          <div class="moment-room">Showroom Garage</div>
+          <div class="moment-desc">Overhead diffused light, ideal for viewing and detailing the collection.</div>
+        </div>
+        <div class="moment">
+          <div class="moment-dot"></div>
+          <div class="moment-time">Golden Hour · 17:30</div>
+          <div class="moment-room">Courtyard Pool</div>
+          <div class="moment-desc">Low sun tracks across the water through the full afternoon.</div>
+        </div>
+        <div class="moment">
+          <div class="moment-dot"></div>
+          <div class="moment-time">Dusk · 19:00</div>
+          <div class="moment-room">Living Hall</div>
+          <div class="moment-desc">Amber light fills the double-height glazing as the hall opens for evening.</div>
+        </div>
+        <div class="moment">
+          <div class="moment-dot"></div>
+          <div class="moment-time">Night · 21:00</div>
+          <div class="moment-room">Roof Garden</div>
+          <div class="moment-desc">A private pavilion above the city, lit low, screened for privacy.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="specs">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">Specification</div>
+        <h2>Numbers and systems, in one place.</h2>
+      </div>
+    </div>
+
+    <div class="split-panel">
+      <div class="panel">
+        <h3>Summary</h3>
+        <div class="spec-row"><span>Bedrooms</span><span>4–5</span></div>
+        <div class="spec-row"><span>Bathrooms</span><span>6</span></div>
+        <div class="spec-row"><span>Kitchens</span><span>2 (show + service)</span></div>
+        <div class="spec-row"><span>Garage capacity</span><span>2 climate + 3 open</span></div>
+        <div class="spec-row"><span>Staff rooms</span><span>2</span></div>
+        <div class="spec-row"><span>Price range</span><span>THB 128–175M</span></div>
+      </div>
+      <div class="panel">
+        <h3>Residential Systems &amp; Amenities</h3>
+        <ul class="amen-list">
+          <li>Home Hub Panel</li>
+          <li>Solar Roof</li>
+          <li>Active Air Control</li>
+          <li>Magnetic &amp; Shock Sensors</li>
+          <li>Smoke / Heat Detection</li>
+          <li>24-Hour Security</li>
+          <li>Private Lift</li>
+          <li>Concierge Desk</li>
+          <li>Covered Guest Parking</li>
+          <li>Pet Friendly</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="location">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">Location</div>
+        <h2>Bang Na, within reach of the city.</h2>
+      </div>
+    </div>
+    <div class="location-block">
+      <div class="map-plate"><div class="coord">13.6810° N, 100.6050° E</div></div>
+      <div class="location-copy">
+        <address>Soi Bang Na–Trat 7, Bang Na, Bangkok 10260, Thailand</address>
+        <div class="drive-list">
+          <div><span>Bang Na Expressway access</span><b>4 min</b></div>
+          <div><span>Thonglor / Ekkamai</span><b>18 min*</b></div>
+          <div><span>Suvarnabhumi Airport</span><b>22 min*</b></div>
+          <div><span>Mega Bangna</span><b>9 min*</b></div>
+        </div>
+        <p style="font-family:var(--mono);font-size:10.5px;color:var(--ivory-dim);margin-top:14px;">*Subject to traffic conditions</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="enquire">
+  <div class="wrap">
+    <div class="section-head">
+      <div>
+        <div class="tag">Private Viewing</div>
+        <h2>Speak to an advisor.</h2>
+      </div>
+      <p>Availability, floor plans and a tailored investment brief are shared on request.</p>
+    </div>
+
+    <div class="enquire-grid">
+      <div class="advisor-card">
+        <div class="advisor-avatar">Q</div>
+        <h4>Quickly Property Advisory</h4>
+        <p>Senior advisors respond personally within one business day with availability and pricing.</p>
+        <div class="advisor-actions">
+          <a href="tel:0000000000">Call</a>
+          <a href="#">WhatsApp</a>
+        </div>
+      </div>
+
+      <form class="enquiry" onsubmit="event.preventDefault();">
+        <div class="form-row">
+          <div class="field-wrap"><label for="name">Full name</label><input id="name" type="text" placeholder="—"></div>
+          <div class="field-wrap"><label for="phone">Phone</label><input id="phone" type="tel" placeholder="—"></div>
+        </div>
+        <div class="field-wrap"><label for="email">Email</label><input id="email" type="email" placeholder="—"></div>
+        <div class="field-wrap"><label for="msg">Message</label><textarea id="msg" placeholder="I'd like to arrange a private viewing…"></textarea></div>
+        <button class="submit-btn" type="submit">Register Interest</button>
+      </form>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap footer-row">
+    <div class="mark">
+      <svg width="22" height="22" viewBox="0 0 26 26" fill="none"><path d="M4 17C4 10.4 8.8 5 15 5" stroke="#E3A542" stroke-width="1.2" stroke-linecap="round"/><circle cx="15" cy="5" r="2.2" fill="#E3A542"/></svg>
+      <div><span class="name">Quickly Property</span><small>Estate Collection</small></div>
+    </div>
+    <div class="legal">Sample template · placeholder data only · © 2026</div>
+  </div>
+</footer>
+
+</body>
+</html>
