@@ -246,12 +246,12 @@
   }
   .hero-title{
     position:relative;z-index:2;font-family:var(--serif);font-weight:300;font-style:italic;
-    font-size:clamp(42px,7vw,94px);line-height:1.06;letter-spacing:-0.005em;
-    margin-top:52px;max-width:900px;min-height:1.2em;
+    font-size:clamp(30px,6vw,84px);line-height:1.08;letter-spacing:-0.005em;
+    margin-top:52px;max-width:none;min-height:1.2em;
     text-shadow:0 2px 30px rgba(15,21,38,0.5);
   }
   .hero-title em{font-style:italic;font-weight:600;color:var(--gold-soft);}
-  .hero-title .htl{display:block;}
+  .hero-title .htl{display:block;white-space:nowrap;}
   .hero-title .l2{padding-left:1.1em;}
   .hero-title .l3{padding-left:2.7em;}
   .hero-title .ch{opacity:0;transition:opacity .18s ease;}
@@ -912,7 +912,7 @@ const I18N = {
     "menu.projects":"โครงการ <span class='arw'>→</span>","menu.properties":"อสังหาริมทรัพย์ <span class='arw'>→</span>","menu.destinations":"ทำเลที่ตั้ง <span class='arw'>→</span>","menu.branded":"แบรนด์เรสซิเดนซ์ <span class='arw'>→</span>","menu.lifestyle":"ไลฟ์สไตล์และการลงทุน <span class='arw'>→</span>","menu.about":"เกี่ยวกับเรา <span class='arw'>→</span>","menu.contact":"ติดต่อเรา <span class='arw'>→</span>",
     "menu.thisResidence":"เรสซิเดนซ์นี้","menu.destHeading":"ทำเล",
     "hero.eyebrow":"เอสเตทคอลเลกชัน · กรุงเทพฯ","hero.stampLabel":"8 ยูนิต ถือครองส่วนตัว",
-    "hero.title":"“บ้านที่ให้ความรู้สึกแตกต่างใน<em>ทุก</em>ช่วงเวลาของวัน”",
+    "hero.title":"<span class='htl l1'>“บ้านที่ให้ความรู้สึก</span><span class='htl l2'>แตกต่างใน<em>ทุก</em></span><span class='htl l3'>ช่วงเวลาของวัน”</span>",
     "label.status":"สถานะ","label.bedrooms":"ห้องนอน","label.land":"ที่ดิน","label.signature":"จุดเด่น",
     "value.status":"สร้างเสร็จ · 2024","value.signature":"โรงจอดปรับอากาศ · สระว่ายน้ำกลางบ้าน",
     "overview.lede":"“อสังหาริมทรัพย์ส่วนใหญ่ถูกออกแบบมาเพื่อการถ่ายภาพ แต่ Aurelia Grove ถูกออกแบบมาเพื่อการใช้ชีวิต — ทุกชั่วโมง ทุกแสงเงา”",
@@ -943,7 +943,7 @@ const I18N = {
     "menu.projects":"프로젝트 <span class='arw'>→</span>","menu.properties":"매물 <span class='arw'>→</span>","menu.destinations":"지역 <span class='arw'>→</span>","menu.branded":"브랜디드 레지던스 <span class='arw'>→</span>","menu.lifestyle":"라이프스타일 &amp; 투자 <span class='arw'>→</span>","menu.about":"소개 <span class='arw'>→</span>","menu.contact":"문의하기 <span class='arw'>→</span>",
     "menu.thisResidence":"이 레지던스","menu.destHeading":"지역",
     "hero.eyebrow":"에스테이트 컬렉션 · 방콕","hero.stampLabel":"8세대 · 프라이빗 소유",
-    "hero.title":"“하루의 <em>매 순간</em> 다르게 느껴지는 집.”",
+    "hero.title":"<span class='htl l1'>“하루의</span><span class='htl l2'><em>매 순간</em> 다르게</span><span class='htl l3'>느껴지는 집.”</span>",
     "label.status":"상태","label.bedrooms":"침실","label.land":"대지","label.signature":"시그니처",
     "value.status":"준공 · 2024","value.signature":"클라이밋 개러지 · 중정 풀",
     "overview.lede":"“대부분의 저택은 ‘사진이 잘 나오도록’ 설계됩니다. Aurelia Grove는 ‘살기 위한’ 집으로 설계되었습니다 — 시간마다, 빛마다.”",
@@ -974,7 +974,7 @@ const I18N = {
     "menu.projects":"项目 <span class='arw'>→</span>","menu.properties":"房源 <span class='arw'>→</span>","menu.destinations":"目的地 <span class='arw'>→</span>","menu.branded":"品牌公寓 <span class='arw'>→</span>","menu.lifestyle":"生活方式与投资 <span class='arw'>→</span>","menu.about":"关于我们 <span class='arw'>→</span>","menu.contact":"联系我们 <span class='arw'>→</span>",
     "menu.thisResidence":"本邸","menu.destHeading":"目的地",
     "hero.eyebrow":"尊邸系列 · 曼谷","hero.stampLabel":"8 套 · 私人持有",
-    "hero.title":"“一天中的<em>每一刻</em>，都别有韵味的家。”",
+    "hero.title":"<span class='htl l1'>“一天中的</span><span class='htl l2'><em>每一刻</em>，</span><span class='htl l3'>都别有韵味的家。”</span>",
     "label.status":"状态","label.bedrooms":"卧室","label.land":"土地","label.signature":"特色",
     "value.status":"已竣工 · 2024","value.signature":"恒温车库 · 庭院泳池",
     "overview.lede":"“多数豪宅为镜头而设计，Aurelia Grove 却为居住而生——随每个时辰、每束光影而变。”",
@@ -1005,7 +1005,7 @@ const I18N = {
     "menu.projects":"プロジェクト <span class='arw'>→</span>","menu.properties":"物件 <span class='arw'>→</span>","menu.destinations":"エリア <span class='arw'>→</span>","menu.branded":"ブランドレジデンス <span class='arw'>→</span>","menu.lifestyle":"ライフスタイルと投資 <span class='arw'>→</span>","menu.about":"会社概要 <span class='arw'>→</span>","menu.contact":"お問い合わせ <span class='arw'>→</span>",
     "menu.thisResidence":"この邸宅","menu.destHeading":"エリア",
     "hero.eyebrow":"エステートコレクション · バンコク","hero.stampLabel":"全8邸・プライベート保有",
-    "hero.title":"“一日の<em>どの時間</em>も、違う表情を見せる家。”",
+    "hero.title":"<span class='htl l1'>“一日の</span><span class='htl l2'><em>どの時間</em>も、</span><span class='htl l3'>違う表情を見せる家。”</span>",
     "label.status":"ステータス","label.bedrooms":"ベッドルーム","label.land":"敷地","label.signature":"シグネチャー",
     "value.status":"竣工済 · 2024","value.signature":"空調ガレージ · 中庭プール",
     "overview.lede":"「多くの邸宅は『写真映え』で設計されます。Aurelia Grove は『暮らし』のために設計されました——時間ごと、光ごとに。」",
