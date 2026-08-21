@@ -3,7 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Aurelia Grove — Quickly Property</title>
+<title>95E1 · Aurelia Grove — Quickly Property</title>
+<meta name="description" content="Aurelia Grove — a private collection of eight supercar-garage pool villas in Bang Na, Bangkok. From THB 90M.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,300;0,400;0,600;1,400;1,500&family=Manrope:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
@@ -29,45 +30,160 @@
     background:var(--navy);color:var(--ivory);
     font-family:var(--sans);font-weight:300;line-height:1.65;
     -webkit-font-smoothing:antialiased;
+    padding-bottom:64px; /* room for sticky enquiry bar */
   }
   a{color:inherit;text-decoration:none;}
   ::selection{background:var(--gold);color:var(--navy);}
   .wrap{max-width:1180px;margin:0 auto;padding:0 40px;}
+  @media (max-width:640px){.wrap{padding:0 22px;}}
 
   /* ---------- header ---------- */
   header.site{
     position:fixed;top:0;left:0;right:0;z-index:100;
     display:flex;align-items:center;justify-content:space-between;
-    padding:26px 40px;
-    background:linear-gradient(to bottom, rgba(15,21,38,0.94), rgba(15,21,38,0));
-    backdrop-filter:blur(2px);
+    padding:18px 40px;gap:18px;
+    background:linear-gradient(to bottom, rgba(15,21,38,0.96), rgba(15,21,38,0));
+    backdrop-filter:blur(3px);
   }
-  .mark{display:flex;align-items:center;gap:12px;}
-  .mark span.name{
+  .header-left{display:flex;align-items:center;gap:18px;}
+
+  /* hamburger */
+  .burger{
+    display:flex;flex-direction:column;justify-content:center;gap:5px;
+    width:34px;height:34px;background:none;border:none;cursor:pointer;padding:6px;
+  }
+  .burger span{display:block;height:1.5px;width:100%;background:var(--ivory);transition:all .3s ease;}
+  .burger:hover span{background:var(--gold-soft);}
+
+  /* refined logo */
+  .mark{display:flex;align-items:center;gap:13px;}
+  .mark .logo-badge{
+    width:42px;height:42px;border-radius:50%;
+    border:1px solid rgba(227,165,66,0.55);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+    background:radial-gradient(70% 70% at 50% 30%, rgba(227,165,66,0.20), rgba(22,31,56,0) 70%);
+    box-shadow:0 0 22px rgba(227,165,66,0.10);
+  }
+  .mark .wordmark span.name{
     display:block;font-family:var(--serif);font-style:italic;font-weight:500;
-    font-size:19px;letter-spacing:0.01em;
+    font-size:21px;letter-spacing:0.02em;line-height:1;
+    background:linear-gradient(92deg,var(--ivory) 20%,var(--gold-soft));
+    -webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;
   }
-  .mark small{
-    display:block;font-family:var(--mono);font-size:9px;letter-spacing:0.2em;
-    color:var(--ivory-dim);text-transform:uppercase;margin-top:2px;
+  .mark .wordmark small{
+    display:block;font-family:var(--mono);font-size:8.5px;letter-spacing:0.32em;
+    color:var(--ivory-dim);text-transform:uppercase;margin-top:4px;
   }
-  nav.primary{display:flex;align-items:center;gap:34px;}
-  nav.primary a{
-    font-family:var(--mono);font-size:11px;letter-spacing:0.12em;
-    text-transform:uppercase;color:var(--ivory-dim);
-    transition:color .25s ease;
-  }
-  nav.primary a:hover{color:var(--gold-soft);}
-  .btn-enquire{
-    border:1px solid var(--gold);color:var(--gold-soft);
-    padding:10px 20px;border-radius:2px;
-    font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+
+  .header-right{display:flex;align-items:center;gap:16px;}
+
+  /* language dropdown */
+  .lang{position:relative;}
+  .lang-btn{
+    display:flex;align-items:center;gap:7px;background:none;border:1px solid var(--line-strong);
+    border-radius:2px;padding:8px 11px;cursor:pointer;color:var(--ivory-dim);
+    font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;
     transition:all .25s ease;
   }
+  .lang-btn:hover{border-color:var(--gold);color:var(--gold-soft);}
+  .lang-btn svg{width:13px;height:13px;}
+  .lang-btn .chev{width:9px;height:9px;transition:transform .25s ease;}
+  .lang.open .lang-btn .chev{transform:rotate(180deg);}
+  .lang-menu{
+    position:absolute;top:calc(100% + 8px);right:0;min-width:150px;
+    background:var(--navy-2);border:1px solid var(--line-strong);border-radius:4px;
+    padding:6px;display:none;flex-direction:column;gap:2px;z-index:120;
+    box-shadow:0 18px 40px rgba(0,0,0,0.5);
+  }
+  .lang.open .lang-menu{display:flex;}
+  .lang-menu button{
+    background:none;border:none;text-align:left;cursor:pointer;color:var(--ivory-dim);
+    font-family:var(--sans);font-size:14px;padding:9px 12px;border-radius:3px;transition:all .2s ease;
+  }
+  .lang-menu button:hover{background:rgba(246,240,226,0.06);color:var(--ivory);}
+  .lang-menu button.active{color:var(--gold-soft);}
+  .lang-menu button.active::after{content:" ●";font-size:8px;vertical-align:middle;}
+
+  /* currency toggle */
+  .cur{display:flex;border:1px solid var(--line-strong);border-radius:2px;overflow:hidden;}
+  .cur button{
+    background:none;border:none;cursor:pointer;color:var(--ivory-dim);
+    font-family:var(--mono);font-size:11px;letter-spacing:0.08em;padding:8px 11px;transition:all .2s ease;
+  }
+  .cur button.active{background:var(--gold);color:var(--navy);}
+
+  /* social */
+  .social{display:flex;align-items:center;gap:12px;}
+  .social a{color:var(--ivory-dim);display:flex;transition:color .25s ease;}
+  .social a:hover{color:var(--gold-soft);}
+  .social svg{width:17px;height:17px;}
+
+  .btn-enquire{
+    border:1px solid var(--gold);color:var(--gold-soft);
+    padding:9px 18px;border-radius:2px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.12em;text-transform:uppercase;
+    transition:all .25s ease;white-space:nowrap;
+  }
   .btn-enquire:hover{background:var(--gold);color:var(--navy);}
-  @media (max-width:820px){
-    nav.primary a:not(.btn-enquire){display:none;}
-    header.site{padding:20px 22px;}
+
+  @media (max-width:900px){
+    .social{display:none;}
+    .mark .wordmark small{display:none;}
+  }
+  @media (max-width:640px){
+    header.site{padding:14px 18px;gap:10px;}
+    .cur{display:none;}
+    .btn-enquire{display:none;}
+    .mark .logo-badge{width:36px;height:36px;}
+    .mark .wordmark span.name{font-size:18px;}
+  }
+
+  /* ---------- slide-out menu overlay ---------- */
+  .menu-overlay{
+    position:fixed;inset:0;z-index:200;background:rgba(11,15,27,0.98);
+    backdrop-filter:blur(6px);
+    transform:translateX(-100%);transition:transform .45s cubic-bezier(.7,0,.2,1);
+    display:flex;flex-direction:column;overflow-y:auto;
+  }
+  .menu-overlay.open{transform:translateX(0);}
+  .menu-head{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:22px 40px;border-bottom:1px solid var(--line);
+  }
+  .menu-close{
+    background:none;border:none;color:var(--ivory);cursor:pointer;font-size:30px;line-height:1;
+    width:40px;height:40px;transition:color .25s ease;
+  }
+  .menu-close:hover{color:var(--gold-soft);}
+  .menu-body{padding:44px 40px 60px;max-width:1180px;margin:0 auto;width:100%;}
+  .menu-primary{display:flex;flex-direction:column;}
+  .menu-primary a{
+    display:flex;align-items:center;justify-content:space-between;
+    font-family:var(--serif);font-weight:400;font-size:clamp(28px,4.4vw,46px);
+    padding:20px 0;border-bottom:1px solid var(--line);color:var(--ivory);
+    transition:color .25s ease,padding-left .25s ease;
+  }
+  .menu-primary a .arw{color:var(--gold);font-size:22px;opacity:.5;transition:opacity .25s ease,transform .25s ease;}
+  .menu-primary a:hover{color:var(--gold-soft);padding-left:12px;}
+  .menu-primary a:hover .arw{opacity:1;transform:translateX(6px);}
+
+  .menu-sub-title{
+    font-family:var(--mono);font-size:11px;letter-spacing:0.2em;text-transform:uppercase;
+    color:var(--gold);margin:44px 0 16px;
+  }
+  .menu-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px 60px;}
+  .menu-list{display:flex;flex-direction:column;gap:2px;}
+  .menu-list a{
+    font-family:var(--serif);font-size:20px;color:var(--ivory-dim);padding:9px 0;
+    transition:color .25s ease,padding-left .2s ease;
+  }
+  .menu-list a:hover{color:var(--gold-soft);padding-left:8px;}
+  .menu-tools{display:none;gap:16px;margin-top:40px;flex-wrap:wrap;align-items:center;}
+  @media (max-width:640px){
+    .menu-head{padding:16px 22px;}
+    .menu-body{padding:34px 22px 60px;}
+    .menu-cols{grid-template-columns:1fr;gap:32px;}
+    .menu-tools{display:flex;}
   }
 
   /* ---------- hero ---------- */
@@ -144,7 +260,7 @@
   }
   .fact-col{border-left:1px solid var(--line);padding-left:40px;}
   .fact-row{
-    display:flex;justify-content:space-between;padding:14px 0;
+    display:flex;justify-content:space-between;padding:14px 0;gap:16px;
     border-bottom:1px solid var(--line);font-family:var(--mono);font-size:12.5px;letter-spacing:0.02em;
   }
   .fact-row span:first-child{color:var(--ivory-dim);text-transform:uppercase;letter-spacing:0.08em;font-size:10.5px;padding-top:2px;}
@@ -181,36 +297,38 @@
     font-family:var(--mono);font-size:11px;letter-spacing:0.14em;text-transform:uppercase;
     color:var(--gold-soft);margin-bottom:28px;
   }
-  .spec-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line);font-size:14px;}
+  .spec-row{display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px dashed var(--line);font-size:14px;gap:16px;}
   .spec-row span:first-child{color:var(--ivory-dim);}
-  .spec-row span:last-child{font-family:var(--mono);}
+  .spec-row span:last-child{font-family:var(--mono);text-align:right;}
   .amen-list{list-style:none;display:grid;grid-template-columns:1fr 1fr;gap:12px 18px;}
   .amen-list li{font-size:13.5px;color:var(--ivory-dim);padding-left:16px;position:relative;}
   .amen-list li::before{content:"—";position:absolute;left:0;color:var(--gold);}
-  @media (max-width:820px){.split-panel{grid-template-columns:1fr;}.panel + .panel{border-left:none;border-top:1px solid var(--line);}}
+  @media (max-width:820px){.split-panel{grid-template-columns:1fr;}.panel + .panel{border-left:none;border-top:1px solid var(--line);}.panel{padding:36px;}}
 
   /* ---------- location ---------- */
   .location-block{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;}
   .map-plate{
-    aspect-ratio:4/3;border:1px solid var(--line-strong);border-radius:4px;position:relative;overflow:hidden;
-    background:
-      radial-gradient(45% 45% at 50% 50%, rgba(227,165,66,0.10), transparent 70%),
-      linear-gradient(var(--line) 1px, transparent 1px) 0 0/44px 44px,
-      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/44px 44px,
-      var(--navy-2);
+    position:relative;aspect-ratio:4/3;border:1px solid var(--line-strong);border-radius:6px;overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,0.35);
   }
-  .map-plate::after{
-    content:"";position:absolute;left:50%;top:50%;width:14px;height:14px;
-    border:1px solid var(--gold-soft);border-radius:50%;transform:translate(-50%,-50%);
-    box-shadow:0 0 0 8px rgba(227,165,66,0.10);
+  .map-plate iframe{width:100%;height:100%;border:0;display:block;filter:grayscale(0.25) contrast(1.05);}
+  .map-chip{
+    position:absolute;bottom:14px;left:14px;z-index:2;
+    background:rgba(15,21,38,0.86);backdrop-filter:blur(4px);
+    border:1px solid var(--line-strong);border-radius:3px;padding:9px 13px;
+    font-family:var(--mono);font-size:10.5px;color:var(--ivory);letter-spacing:0.04em;
+    display:flex;align-items:center;gap:8px;
   }
-  .map-plate .coord{
-    position:absolute;bottom:16px;left:16px;font-family:var(--mono);font-size:10px;
-    color:var(--ivory-dim);letter-spacing:0.05em;
+  .map-chip::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--gold-soft);box-shadow:0 0 0 4px rgba(227,165,66,0.25);}
+  .map-actions{margin-top:14px;}
+  .map-actions a{
+    font-family:var(--mono);font-size:10.5px;letter-spacing:0.08em;text-transform:uppercase;
+    color:var(--gold-soft);border-bottom:1px solid var(--line-strong);padding-bottom:2px;transition:border-color .25s ease;
   }
-  .location-copy address{font-style:normal;color:var(--ivory-dim);font-size:14.5px;margin:18px 0 26px;line-height:1.8;}
+  .map-actions a:hover{border-color:var(--gold);}
+  .location-copy address{font-style:normal;color:var(--ivory-dim);font-size:14.5px;margin:0 0 26px;line-height:1.8;}
   .drive-list{display:flex;flex-direction:column;gap:10px;}
-  .drive-list div{display:flex;justify-content:space-between;font-size:13px;font-family:var(--mono);border-bottom:1px solid var(--line);padding-bottom:8px;color:var(--ivory-dim);}
+  .drive-list div{display:flex;justify-content:space-between;gap:16px;font-size:13px;font-family:var(--mono);border-bottom:1px solid var(--line);padding-bottom:8px;color:var(--ivory-dim);}
   .drive-list div b{color:var(--ivory);font-weight:400;}
   @media (max-width:820px){.location-block{grid-template-columns:1fr;}}
 
@@ -227,7 +345,7 @@
   .advisor-actions{display:flex;gap:10px;flex-wrap:wrap;}
   .advisor-actions a{
     font-family:var(--mono);font-size:11px;letter-spacing:0.06em;text-transform:uppercase;
-    border:1px solid var(--line-strong);border-radius:2px;padding:10px 16px;flex:1;text-align:center;
+    border:1px solid var(--line-strong);border-radius:2px;padding:10px 14px;flex:1;text-align:center;min-width:70px;
     transition:all .25s ease;
   }
   .advisor-actions a:hover{border-color:var(--gold);color:var(--gold-soft);}
@@ -250,14 +368,46 @@
     text-transform:uppercase;cursor:pointer;transition:background .25s ease;
   }
   .submit-btn:hover{background:var(--gold-soft);}
-  .submit-btn:focus-visible, a:focus-visible, .btn-enquire:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;}
+  .submit-btn:focus-visible, a:focus-visible, button:focus-visible{outline:2px solid var(--gold-soft);outline-offset:3px;}
   @media (max-width:820px){.enquire-grid{grid-template-columns:1fr;}.form-row{grid-template-columns:1fr;}}
 
   /* ---------- footer ---------- */
   footer{padding:48px 0;}
-  .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
-  footer .mark{opacity:0.75;}
+  .footer-row{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px;}
+  footer .mark{opacity:0.85;}
+  .footer-social{display:flex;gap:16px;}
+  .footer-social a{color:var(--ivory-dim);transition:color .25s ease;}
+  .footer-social a:hover{color:var(--gold-soft);}
+  .footer-social svg{width:18px;height:18px;}
   footer .legal{font-family:var(--mono);font-size:10.5px;color:var(--ivory-dim);letter-spacing:0.03em;}
+
+  /* ---------- sticky enquiry bar ---------- */
+  .sticky-bar{
+    position:fixed;left:0;right:0;bottom:0;z-index:90;
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:10px 40px;background:rgba(15,21,38,0.94);backdrop-filter:blur(8px);
+    border-top:1px solid var(--line-strong);
+  }
+  .sticky-price{display:flex;flex-direction:column;line-height:1.25;}
+  .sticky-price b{font-family:var(--serif);font-style:italic;font-size:18px;color:var(--ivory);}
+  .sticky-price span{font-family:var(--mono);font-size:9.5px;letter-spacing:0.12em;text-transform:uppercase;color:var(--ivory-dim);}
+  .sticky-actions{display:flex;align-items:center;gap:10px;}
+  .sticky-actions .ico{
+    width:38px;height:38px;border:1px solid var(--line-strong);border-radius:3px;
+    display:flex;align-items:center;justify-content:center;color:var(--ivory-dim);transition:all .25s ease;
+  }
+  .sticky-actions .ico:hover{border-color:var(--gold);color:var(--gold-soft);}
+  .sticky-actions .ico svg{width:17px;height:17px;}
+  .sticky-actions .reg{
+    background:var(--gold);color:var(--navy);border-radius:2px;padding:11px 22px;
+    font-family:var(--mono);font-size:11px;letter-spacing:0.1em;text-transform:uppercase;transition:background .25s ease;
+  }
+  .sticky-actions .reg:hover{background:var(--gold-soft);}
+  @media (max-width:640px){
+    .sticky-bar{padding:8px 16px;gap:10px;}
+    .sticky-price b{font-size:16px;}
+    .sticky-actions .reg{padding:10px 16px;}
+  }
 
   @media (prefers-reduced-motion: reduce){
     html{scroll-behavior:auto;}
@@ -267,21 +417,128 @@
 </head>
 <body>
 
+<!-- ========== HEADER ========== -->
 <header class="site">
-  <div class="mark">
-    <svg width="26" height="26" viewBox="0 0 26 26" fill="none"><path d="M4 17C4 10.4 8.8 5 15 5" stroke="#E3A542" stroke-width="1.3" stroke-linecap="round"/><circle cx="15" cy="5" r="2.4" fill="#E3A542"/><path d="M4 21H22" stroke="#E3A542" stroke-width="1" opacity="0.4" stroke-linecap="round"/></svg>
-    <div><span class="name">Quickly Property</span><small>Estate Collection</small></div>
+  <div class="header-left">
+    <button class="burger" id="burger" aria-label="Open menu" aria-controls="menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <a href="#top" class="mark" aria-label="Quickly Property home">
+      <span class="logo-badge">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+          <defs>
+            <linearGradient id="lg" x1="0" y1="24" x2="24" y2="0">
+              <stop offset="0" stop-color="#E3A542"/><stop offset="1" stop-color="#F2C877"/>
+            </linearGradient>
+          </defs>
+          <path d="M3 18C3 10 8.4 4 15 4" stroke="url(#lg)" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="15" cy="4" r="2.6" fill="url(#lg)"/>
+          <path d="M3 21H21" stroke="#E3A542" stroke-width="1" opacity="0.45" stroke-linecap="round"/>
+          <path d="M6.5 21V15M10 21V12.5M13.5 21V11" stroke="#E3A542" stroke-width="0.9" opacity="0.35" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <span class="wordmark">
+        <span class="name">Quickly Property</span>
+        <small data-i18n="brand.tagline">Estate Collection</small>
+      </span>
+    </a>
   </div>
-  <nav class="primary">
-    <a href="#overview">Overview</a>
-    <a href="#hours">Hours of the House</a>
-    <a href="#specs">Specification</a>
-    <a href="#location">Location</a>
-    <a class="btn-enquire" href="#enquire">Enquire</a>
-  </nav>
+
+  <div class="header-right">
+    <div class="social" aria-label="Social links">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.5-1.5h1.6V3.6c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.3H7.6V13h2.8v8h3.1z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a>
+    </div>
+
+    <div class="cur" role="group" aria-label="Currency">
+      <button data-cur="thb" class="active">THB</button>
+      <button data-cur="usd">USD</button>
+    </div>
+
+    <div class="lang" id="lang">
+      <button class="lang-btn" id="langBtn" aria-haspopup="true" aria-expanded="false">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.5 2.5 15 0 18M12 3c-2.5 2.5-2.5 15 0 18"/></svg>
+        <span id="langCode">EN</span>
+        <svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9l6 6 6-6"/></svg>
+      </button>
+      <div class="lang-menu" id="langMenu" role="menu">
+        <button data-lang="en">English</button>
+        <button data-lang="th">ภาษาไทย</button>
+        <button data-lang="ko">한국어</button>
+        <button data-lang="zh">中文</button>
+        <button data-lang="ja">日本語</button>
+      </div>
+    </div>
+
+    <a class="btn-enquire" href="#enquire" data-i18n="nav.enquire">Enquire</a>
+  </div>
 </header>
 
-<section class="hero">
+<!-- ========== SLIDE-OUT MENU ========== -->
+<div class="menu-overlay" id="menu" role="dialog" aria-modal="true" aria-label="Main menu">
+  <div class="menu-head">
+    <span class="mark" style="pointer-events:none;">
+      <span class="logo-badge">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M3 18C3 10 8.4 4 15 4" stroke="#E3A542" stroke-width="1.5" stroke-linecap="round"/>
+          <circle cx="15" cy="4" r="2.6" fill="#E3A542"/>
+        </svg>
+      </span>
+      <span class="wordmark"><span class="name">Quickly Property</span></span>
+    </span>
+    <button class="menu-close" id="menuClose" aria-label="Close menu">&times;</button>
+  </div>
+  <div class="menu-body">
+    <nav class="menu-primary">
+      <a href="#" data-i18n-html="menu.projects">Projects <span class="arw">&rarr;</span></a>
+      <a href="#" data-i18n-html="menu.properties">Properties <span class="arw">&rarr;</span></a>
+      <a href="#" data-i18n-html="menu.destinations">Destinations <span class="arw">&rarr;</span></a>
+      <a href="#" data-i18n-html="menu.branded">Branded Residences <span class="arw">&rarr;</span></a>
+      <a href="#" data-i18n-html="menu.lifestyle">Lifestyle &amp; Investment <span class="arw">&rarr;</span></a>
+      <a href="#" data-i18n-html="menu.about">About <span class="arw">&rarr;</span></a>
+      <a href="#" data-i18n-html="menu.contact">Contact Us <span class="arw">&rarr;</span></a>
+    </nav>
+
+    <div class="menu-cols">
+      <div>
+        <div class="menu-sub-title" data-i18n="menu.thisResidence">This Residence</div>
+        <div class="menu-list" data-menu-anchor>
+          <a href="#overview" data-i18n="nav.overview">Overview</a>
+          <a href="#hours" data-i18n="nav.hours">Hours of the House</a>
+          <a href="#specs" data-i18n="nav.specs">Specification</a>
+          <a href="#location" data-i18n="nav.location">Location</a>
+          <a href="#enquire" data-i18n="nav.enquire">Enquire</a>
+        </div>
+      </div>
+      <div>
+        <div class="menu-sub-title" data-i18n="menu.destHeading">Destinations</div>
+        <div class="menu-list">
+          <a href="#">Bangkok</a>
+          <a href="#">Phuket</a>
+          <a href="#">Khao Yai</a>
+          <a href="#">Hua Hin</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="menu-tools">
+      <div class="cur" role="group" aria-label="Currency">
+        <button data-cur="thb" class="active">THB</button>
+        <button data-cur="usd">USD</button>
+      </div>
+      <div class="lang-menu" style="position:static;display:flex;background:none;border:1px solid var(--line-strong);flex-direction:row;flex-wrap:wrap;">
+        <button data-lang="en">EN</button>
+        <button data-lang="th">TH</button>
+        <button data-lang="ko">KO</button>
+        <button data-lang="zh">中文</button>
+        <button data-lang="ja">日本</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ========== HERO ========== -->
+<section class="hero" id="top">
   <div class="hero-glow"></div>
   <div class="hero-roofline" aria-hidden="true">
     <svg viewBox="0 0 1200 200" preserveAspectRatio="none" fill="none">
@@ -291,51 +548,53 @@
 
   <div class="wrap" style="height:100%;display:flex;flex-direction:column;flex:1;">
     <div class="hero-top">
-      <div class="eyebrow">Estate Collection · Bangkok</div>
-      <div class="stamp">8 Residences, Privately Held<strong>From THB 128,000,000</strong></div>
+      <div class="eyebrow" data-i18n="hero.eyebrow">Estate Collection · Bangkok</div>
+      <div class="stamp"><span data-i18n="hero.stampLabel">8 Residences, Privately Held</span><strong data-thb="THB 90,000,000" data-usd="USD 2,470,000">THB 90,000,000</strong></div>
     </div>
 
-    <h1 class="hero-title">A house that feels<br>different at <em>every</em><br>hour of the day.</h1>
+    <h1 class="hero-title" data-i18n-html="hero.title">A house that feels different at <em>every</em> hour of the day.</h1>
 
     <div class="hero-sub">
-      <div class="field">STATUS<b>Completed · 2025</b></div>
-      <div class="field">BEDROOMS<b>4–5</b></div>
-      <div class="field">LAND<b>16 rai 3 ngan</b></div>
-      <div class="field">SIGNATURE<b>Climate Garage · Courtyard Pool</b></div>
+      <div class="field"><span data-i18n="label.status">Status</span><b data-i18n="value.status">Completed · 2024</b></div>
+      <div class="field"><span data-i18n="label.bedrooms">Bedrooms</span><b>4–5</b></div>
+      <div class="field"><span data-i18n="label.land">Land</span><b>16 rai 3 ngan</b></div>
+      <div class="field"><span data-i18n="label.signature">Signature</span><b data-i18n="value.signature">Climate Garage · Courtyard Pool</b></div>
     </div>
   </div>
 </section>
 
+<!-- ========== OVERVIEW ========== -->
 <section id="overview">
   <div class="wrap">
     <div class="overview-grid">
       <div>
-        <p class="lede">"Most estates are designed for how they photograph. Aurelia Grove was designed for how it lives — hour to hour, light to light."</p>
-        <p>Aurelia Grove is a collection of eight three-storey pool villas set within a private soi off the Bang Na–Trat corridor, roughly eighteen minutes from Thonglor by expressway. Each residence pairs a climate-controlled two-car showroom garage with an adjoining lounge, so the collection and the living space share one continuous floor.</p>
-        <p>Above, the plan opens into a double-height living hall, a courtyard pool, and a top-floor suite with its own roof garden — a rhythm of rooms built to be lived in, not just viewed.</p>
+        <p class="lede" data-i18n="overview.lede">"Most estates are designed for how they photograph. Aurelia Grove was designed for how it lives — hour to hour, light to light."</p>
+        <p data-i18n="overview.p1">Aurelia Grove is a collection of eight three-storey pool villas set within a private soi off the Bang Na–Trat corridor, roughly eighteen minutes from Thonglor by expressway. Each residence pairs a climate-controlled two-car showroom garage with an adjoining lounge, so the collection and the living space share one continuous floor.</p>
+        <p data-i18n="overview.p2">Above, the plan opens into a double-height living hall, a courtyard pool, and a top-floor suite with its own roof garden — a rhythm of rooms built to be lived in, not just viewed.</p>
       </div>
       <div class="fact-col">
-        <div class="fact-row"><span>Developer</span><span>Quickly Property</span></div>
-        <div class="fact-row"><span>District</span><span>Bang Na, Bangkok</span></div>
-        <div class="fact-row"><span>Ownership</span><span>Freehold</span></div>
-        <div class="fact-row"><span>Residences</span><span>8 villas</span></div>
-        <div class="fact-row"><span>Land / unit</span><span>16 rai 3 ngan</span></div>
-        <div class="fact-row"><span>Usable area</span><span>≈ 760 sq.m.</span></div>
-        <div class="fact-row"><span>Parking</span><span>2 showroom + 3 open</span></div>
-        <div class="fact-row"><span>Completion</span><span>2025</span></div>
+        <div class="fact-row"><span data-i18n="fact.developer">Developer</span><span>Quickly Property</span></div>
+        <div class="fact-row"><span data-i18n="fact.district">District</span><span>Bang Na, Bangkok</span></div>
+        <div class="fact-row"><span data-i18n="fact.ownership">Ownership</span><span data-i18n="value.freehold">Freehold</span></div>
+        <div class="fact-row"><span data-i18n="fact.residences">Residences</span><span data-i18n="value.villas">8 villas</span></div>
+        <div class="fact-row"><span data-i18n="fact.landunit">Land / unit</span><span>16 rai 3 ngan</span></div>
+        <div class="fact-row"><span data-i18n="fact.usable">Usable area</span><span>≈ 760 sq.m.</span></div>
+        <div class="fact-row"><span data-i18n="fact.parking">Parking</span><span data-i18n="value.parking">2 showroom + 3 open</span></div>
+        <div class="fact-row"><span data-i18n="fact.completion">Completion</span><span>2024</span></div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ========== HOURS OF THE HOUSE ========== -->
 <section id="hours">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="tag">Hours of the House</div>
-        <h2>One residence, <em>five</em> different lights.</h2>
+        <div class="tag" data-i18n="hours.tag">Hours of the House</div>
+        <h2 data-i18n-html="hours.h2">One residence, <em>five</em> different lights.</h2>
       </div>
-      <p>Every room at Aurelia Grove was oriented for a specific hour — this is when each one is at its best.</p>
+      <p data-i18n="hours.desc">Every room at Aurelia Grove was oriented for a specific hour — this is when each one is at its best.</p>
     </div>
 
     <div class="arc-wrap">
@@ -345,87 +604,95 @@
       <div class="arc-moments">
         <div class="moment">
           <div class="moment-dot"></div>
-          <div class="moment-time">Dawn · 06:00</div>
-          <div class="moment-room">Master Suite</div>
-          <div class="moment-desc">East-facing glazing brings first light directly into the sleeping quarter.</div>
+          <div class="moment-time" data-i18n="moment1.time">Dawn · 06:00</div>
+          <div class="moment-room" data-i18n="moment1.room">Master Suite</div>
+          <div class="moment-desc" data-i18n="moment1.desc">East-facing glazing brings first light directly into the sleeping quarter.</div>
         </div>
         <div class="moment">
           <div class="moment-dot"></div>
-          <div class="moment-time">Midday · 12:00</div>
-          <div class="moment-room">Showroom Garage</div>
-          <div class="moment-desc">Overhead diffused light, ideal for viewing and detailing the collection.</div>
+          <div class="moment-time" data-i18n="moment2.time">Midday · 12:00</div>
+          <div class="moment-room" data-i18n="moment2.room">Showroom Garage</div>
+          <div class="moment-desc" data-i18n="moment2.desc">Overhead diffused light, ideal for viewing and detailing the collection.</div>
         </div>
         <div class="moment">
           <div class="moment-dot"></div>
-          <div class="moment-time">Golden Hour · 17:30</div>
-          <div class="moment-room">Courtyard Pool</div>
-          <div class="moment-desc">Low sun tracks across the water through the full afternoon.</div>
+          <div class="moment-time" data-i18n="moment3.time">Golden Hour · 17:30</div>
+          <div class="moment-room" data-i18n="moment3.room">Courtyard Pool</div>
+          <div class="moment-desc" data-i18n="moment3.desc">Low sun tracks across the water through the full afternoon.</div>
         </div>
         <div class="moment">
           <div class="moment-dot"></div>
-          <div class="moment-time">Dusk · 19:00</div>
-          <div class="moment-room">Living Hall</div>
-          <div class="moment-desc">Amber light fills the double-height glazing as the hall opens for evening.</div>
+          <div class="moment-time" data-i18n="moment4.time">Dusk · 19:00</div>
+          <div class="moment-room" data-i18n="moment4.room">Living Hall</div>
+          <div class="moment-desc" data-i18n="moment4.desc">Amber light fills the double-height glazing as the hall opens for evening.</div>
         </div>
         <div class="moment">
           <div class="moment-dot"></div>
-          <div class="moment-time">Night · 21:00</div>
-          <div class="moment-room">Roof Garden</div>
-          <div class="moment-desc">A private pavilion above the city, lit low, screened for privacy.</div>
+          <div class="moment-time" data-i18n="moment5.time">Night · 21:00</div>
+          <div class="moment-room" data-i18n="moment5.room">Roof Garden</div>
+          <div class="moment-desc" data-i18n="moment5.desc">A private pavilion above the city, lit low, screened for privacy.</div>
         </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ========== SPECIFICATION ========== -->
 <section id="specs">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="tag">Specification</div>
-        <h2>Numbers and systems, in one place.</h2>
+        <div class="tag" data-i18n="specs.tag">Specification</div>
+        <h2 data-i18n="specs.h2">Numbers and systems, in one place.</h2>
       </div>
     </div>
 
     <div class="split-panel">
       <div class="panel">
-        <h3>Summary</h3>
-        <div class="spec-row"><span>Bedrooms</span><span>4–5</span></div>
-        <div class="spec-row"><span>Bathrooms</span><span>6</span></div>
-        <div class="spec-row"><span>Kitchens</span><span>2 (show + service)</span></div>
-        <div class="spec-row"><span>Garage capacity</span><span>2 climate + 3 open</span></div>
-        <div class="spec-row"><span>Staff rooms</span><span>2</span></div>
-        <div class="spec-row"><span>Price range</span><span>THB 128–175M</span></div>
+        <h3 data-i18n="specs.summary">Summary</h3>
+        <div class="spec-row"><span data-i18n="label.bedrooms">Bedrooms</span><span>4–5</span></div>
+        <div class="spec-row"><span data-i18n="spec.bathrooms">Bathrooms</span><span>6</span></div>
+        <div class="spec-row"><span data-i18n="spec.kitchens">Kitchens</span><span data-i18n="value.kitchens">2 (show + service)</span></div>
+        <div class="spec-row"><span data-i18n="spec.garage">Garage capacity</span><span data-i18n="value.garage">2 climate + 3 open</span></div>
+        <div class="spec-row"><span data-i18n="spec.staff">Staff rooms</span><span>2</span></div>
+        <div class="spec-row"><span data-i18n="spec.price">Price</span><span data-thb="THB 90M" data-usd="USD 2.47M">THB 90M</span></div>
       </div>
       <div class="panel">
-        <h3>Residential Systems &amp; Amenities</h3>
+        <h3 data-i18n="specs.systems">Residential Systems &amp; Amenities</h3>
         <ul class="amen-list">
-          <li>Home Hub Panel</li>
-          <li>Solar Roof</li>
-          <li>Active Air Control</li>
-          <li>Magnetic &amp; Shock Sensors</li>
-          <li>Smoke / Heat Detection</li>
-          <li>24-Hour Security</li>
-          <li>Private Lift</li>
-          <li>Concierge Desk</li>
-          <li>Covered Guest Parking</li>
-          <li>Pet Friendly</li>
+          <li data-i18n="amen.1">Home Hub Panel</li>
+          <li data-i18n="amen.2">Solar Roof</li>
+          <li data-i18n="amen.3">Active Air Control</li>
+          <li data-i18n="amen.4">Magnetic &amp; Shock Sensors</li>
+          <li data-i18n="amen.5">Smoke / Heat Detection</li>
+          <li data-i18n="amen.6">24-Hour Security</li>
+          <li data-i18n="amen.7">Private Lift</li>
+          <li data-i18n="amen.8">Concierge Desk</li>
+          <li data-i18n="amen.9">Covered Guest Parking</li>
+          <li data-i18n="amen.10">Pet Friendly</li>
         </ul>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ========== LOCATION ========== -->
 <section id="location">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="tag">Location</div>
-        <h2>Bang Na, within reach of the city.</h2>
+        <div class="tag" data-i18n="location.tag">Location</div>
+        <h2 data-i18n="location.h2">Bang Na, within reach of the city.</h2>
       </div>
     </div>
     <div class="location-block">
-      <div class="map-plate"><div class="coord">13.6810° N, 100.6050° E</div></div>
+      <div class="map-plate">
+        <iframe
+          title="Aurelia Grove — Bang Na, Bangkok"
+          src="https://www.google.com/maps?q=Bang%20Na,%20Bangkok&z=13&output=embed"
+          loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        <div class="map-chip">13.6810° N, 100.6050° E</div>
+      </div>
       <div class="location-copy">
         <address>Soi Bang Na–Trat 7, Bang Na, Bangkok 10260, Thailand</address>
         <div class="drive-list">
@@ -434,55 +701,286 @@
           <div><span>Suvarnabhumi Airport</span><b>22 min*</b></div>
           <div><span>Mega Bangna</span><b>9 min*</b></div>
         </div>
-        <p style="font-family:var(--mono);font-size:10.5px;color:var(--ivory-dim);margin-top:14px;">*Subject to traffic conditions</p>
+        <p style="font-family:var(--mono);font-size:10.5px;color:var(--ivory-dim);margin-top:14px;" data-i18n="location.traffic">*Subject to traffic conditions</p>
+        <div class="map-actions">
+          <a href="https://www.google.com/maps/search/?api=1&query=Bang+Na+Bangkok" target="_blank" rel="noopener" data-i18n="location.open">Open in Google Maps →</a>
+        </div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- ========== ENQUIRE ========== -->
 <section id="enquire">
   <div class="wrap">
     <div class="section-head">
       <div>
-        <div class="tag">Private Viewing</div>
-        <h2>Speak to an advisor.</h2>
+        <div class="tag" data-i18n="enquire.tag">Private Viewing</div>
+        <h2 data-i18n="enquire.h2">Speak to an advisor.</h2>
       </div>
-      <p>Availability, floor plans and a tailored investment brief are shared on request.</p>
+      <p data-i18n="enquire.desc">Availability, floor plans and a tailored investment brief are shared on request.</p>
     </div>
 
     <div class="enquire-grid">
       <div class="advisor-card">
         <div class="advisor-avatar">Q</div>
         <h4>Quickly Property Advisory</h4>
-        <p>Senior advisors respond personally within one business day with availability and pricing.</p>
+        <p data-i18n="advisor.desc">Senior advisors respond personally within one business day with availability and pricing.</p>
         <div class="advisor-actions">
-          <a href="tel:0000000000">Call</a>
+          <a href="tel:0000000000" data-i18n="btn.call">Call</a>
           <a href="#">WhatsApp</a>
+          <a href="#">LINE</a>
         </div>
       </div>
 
-      <form class="enquiry" onsubmit="event.preventDefault();">
+      <form class="enquiry" onsubmit="event.preventDefault(); this.reset(); document.getElementById('formOk').style.display='block';">
         <div class="form-row">
-          <div class="field-wrap"><label for="name">Full name</label><input id="name" type="text" placeholder="—"></div>
-          <div class="field-wrap"><label for="phone">Phone</label><input id="phone" type="tel" placeholder="—"></div>
+          <div class="field-wrap"><label for="name" data-i18n="form.name">Full name</label><input id="name" type="text" placeholder="—"></div>
+          <div class="field-wrap"><label for="phone" data-i18n="form.phone">Phone</label><input id="phone" type="tel" placeholder="—"></div>
         </div>
-        <div class="field-wrap"><label for="email">Email</label><input id="email" type="email" placeholder="—"></div>
-        <div class="field-wrap"><label for="msg">Message</label><textarea id="msg" placeholder="I'd like to arrange a private viewing…"></textarea></div>
-        <button class="submit-btn" type="submit">Register Interest</button>
+        <div class="field-wrap"><label for="email" data-i18n="form.email">Email</label><input id="email" type="email" placeholder="—"></div>
+        <div class="field-wrap"><label for="msg" data-i18n="form.message">Message</label><textarea id="msg" data-i18n-ph="form.msgPlaceholder" placeholder="I'd like to arrange a private viewing…"></textarea></div>
+        <button class="submit-btn" type="submit" data-i18n="form.submit">Register Interest</button>
+        <p id="formOk" style="display:none;color:var(--gold-soft);font-size:13px;" data-i18n="form.ok">Thank you — an advisor will be in touch shortly. (Demo form — not yet connected.)</p>
       </form>
     </div>
   </div>
 </section>
 
+<!-- ========== FOOTER ========== -->
 <footer>
   <div class="wrap footer-row">
     <div class="mark">
-      <svg width="22" height="22" viewBox="0 0 26 26" fill="none"><path d="M4 17C4 10.4 8.8 5 15 5" stroke="#E3A542" stroke-width="1.2" stroke-linecap="round"/><circle cx="15" cy="5" r="2.2" fill="#E3A542"/></svg>
-      <div><span class="name">Quickly Property</span><small>Estate Collection</small></div>
+      <span class="logo-badge">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+          <path d="M3 18C3 10 8.4 4 15 4" stroke="#E3A542" stroke-width="1.4" stroke-linecap="round"/>
+          <circle cx="15" cy="4" r="2.4" fill="#E3A542"/>
+        </svg>
+      </span>
+      <span class="wordmark"><span class="name">Quickly Property</span><small data-i18n="brand.tagline">Estate Collection</small></span>
     </div>
-    <div class="legal">Sample template · placeholder data only · © 2026</div>
+    <div class="footer-social" aria-label="Social links">
+      <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M13.5 21v-8h2.7l.4-3.1h-3.1V7.9c0-.9.25-1.5 1.5-1.5h1.6V3.6c-.3 0-1.2-.1-2.3-.1-2.3 0-3.9 1.4-3.9 4v2.3H7.6V13h2.8v8h3.1z"/></svg></a>
+      <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="3.5" width="17" height="17" rx="4.5"/><circle cx="12" cy="12" r="3.8"/><circle cx="17" cy="7" r="1" fill="currentColor" stroke="none"/></svg></a>
+      <a href="#" aria-label="LINE"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.8 3 2.5 6.4 2.5 10.6c0 3.8 3.4 7 8 7.5.3.1.7.2.8.5.1.3 0 .7 0 1l-.1.8c0 .3-.2 1 .9.6 1.1-.5 6-3.5 8.2-6 1.5-1.6 2.2-3.2 2.2-5C22.5 6.4 18.2 3 12 3z"/></svg></a>
+    </div>
+    <div class="legal"><span data-i18n="footer.sample">Sample template · placeholder data only</span> · © 2026</div>
   </div>
 </footer>
+
+<!-- ========== STICKY ENQUIRY BAR ========== -->
+<div class="sticky-bar">
+  <div class="sticky-price">
+    <b data-thb="THB 90M" data-usd="USD 2.47M">THB 90M</b>
+    <span data-i18n="value.status">Completed · 2024</span>
+  </div>
+  <div class="sticky-actions">
+    <a class="ico" href="tel:0000000000" aria-label="Call"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M5 4h3l2 5-2 1.5a11 11 0 005.5 5.5L20 18l1 3v-3-1a1 1 0 00-1-1l-3 .5"/><path d="M5 4a15 15 0 0015 15"/></svg></a>
+    <a class="ico" href="#" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 00-8.6 15l-1.3 4.6 4.7-1.2A10 10 0 1012 2zm0 2a8 8 0 11-4.2 14.8l-.3-.2-2.6.7.7-2.5-.2-.3A8 8 0 0112 4zm-2.6 4c-.2 0-.5 0-.7.4-.2.4-.9 1-.9 2.3s1 2.6 1.1 2.8c.1.2 1.9 3 4.7 4 .7.3 1.2.5 1.6.3.5-.2 1.5-.6 1.7-1.2.2-.6.2-1.1.1-1.2l-.7-.4c-.3-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.6.1l-.8 1c-.1.2-.3.2-.5.1-.7-.3-1.4-.7-2.2-1.6-.3-.4 0-.4.2-.7.1-.1.3-.4.4-.5l.2-.5c0-.2 0-.3-.1-.4l-.7-1.7c-.2-.5-.4-.4-.6-.4z"/></svg></a>
+    <a class="ico" href="#" aria-label="LINE"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 3C6.8 3 2.5 6.4 2.5 10.6c0 3.8 3.4 7 8 7.5.3.1.7.2.8.5.1.3 0 .7 0 1l-.1.8c0 .3-.2 1 .9.6 1.1-.5 6-3.5 8.2-6 1.5-1.6 2.2-3.2 2.2-5C22.5 6.4 18.2 3 12 3z"/></svg></a>
+    <a class="reg" href="#enquire" data-i18n="btn.register">Register</a>
+  </div>
+</div>
+
+<script>
+/* ---------------- i18n dictionary ---------------- */
+const I18N = {
+  en:{}, // English is the source in the HTML itself
+  th:{
+    "brand.tagline":"เอสเตทคอลเลกชัน",
+    "nav.overview":"ภาพรวม","nav.hours":"ช่วงเวลาของบ้าน","nav.specs":"สเปค","nav.location":"ทำเล","nav.enquire":"สอบถาม",
+    "menu.projects":"โครงการ <span class='arw'>→</span>","menu.properties":"อสังหาริมทรัพย์ <span class='arw'>→</span>","menu.destinations":"ทำเลที่ตั้ง <span class='arw'>→</span>","menu.branded":"แบรนด์เรสซิเดนซ์ <span class='arw'>→</span>","menu.lifestyle":"ไลฟ์สไตล์และการลงทุน <span class='arw'>→</span>","menu.about":"เกี่ยวกับเรา <span class='arw'>→</span>","menu.contact":"ติดต่อเรา <span class='arw'>→</span>",
+    "menu.thisResidence":"เรสซิเดนซ์นี้","menu.destHeading":"ทำเล",
+    "hero.eyebrow":"เอสเตทคอลเลกชัน · กรุงเทพฯ","hero.stampLabel":"8 ยูนิต ถือครองส่วนตัว",
+    "hero.title":"บ้านที่ให้ความรู้สึกแตกต่างใน<em>ทุก</em>ช่วงเวลาของวัน",
+    "label.status":"สถานะ","label.bedrooms":"ห้องนอน","label.land":"ที่ดิน","label.signature":"จุดเด่น",
+    "value.status":"สร้างเสร็จ · 2024","value.signature":"โรงจอดปรับอากาศ · สระว่ายน้ำกลางบ้าน",
+    "overview.lede":"“อสังหาริมทรัพย์ส่วนใหญ่ถูกออกแบบมาเพื่อการถ่ายภาพ แต่ Aurelia Grove ถูกออกแบบมาเพื่อการใช้ชีวิต — ทุกชั่วโมง ทุกแสงเงา”",
+    "overview.p1":"Aurelia Grove คือคอลเลกชันพูลวิลลาสามชั้นจำนวนแปดหลัง ตั้งอยู่ในซอยส่วนตัวย่านบางนา–ตราด ห่างจากทองหล่อราวสิบแปดนาทีโดยทางด่วน แต่ละหลังผสานโรงจอดรถโชว์รูมปรับอากาศสำหรับสองคันเข้ากับเลาจน์ ทำให้พื้นที่จัดแสดงและพื้นที่พักผ่อนอยู่บนชั้นเดียวกันอย่างต่อเนื่อง",
+    "overview.p2":"ชั้นบนเปิดสู่ห้องนั่งเล่นเพดานสูงสองเท่า สระว่ายน้ำกลางบ้าน และห้องสวีทชั้นบนสุดพร้อมสวนดาดฟ้าส่วนตัว — จังหวะของห้องที่สร้างมาเพื่อการอยู่อาศัย ไม่ใช่เพียงเพื่อการชม",
+    "fact.developer":"ผู้พัฒนา","fact.district":"เขต","fact.ownership":"กรรมสิทธิ์","fact.residences":"จำนวนยูนิต","fact.landunit":"ที่ดินต่อยูนิต","fact.usable":"พื้นที่ใช้สอย","fact.parking":"ที่จอดรถ","fact.completion":"ปีที่สร้างเสร็จ",
+    "value.freehold":"กรรมสิทธิ์สมบูรณ์","value.villas":"8 หลัง","value.parking":"โชว์รูม 2 + กลางแจ้ง 3",
+    "hours.tag":"ช่วงเวลาของบ้าน","hours.h2":"หนึ่งเรสซิเดนซ์ <em>ห้า</em>แสงที่แตกต่าง","hours.desc":"ทุกห้องใน Aurelia Grove ถูกจัดวางเพื่อช่วงเวลาหนึ่งโดยเฉพาะ — นี่คือช่วงที่แต่ละห้องงดงามที่สุด",
+    "moment1.time":"รุ่งอรุณ · 06:00","moment1.room":"มาสเตอร์สวีท","moment1.desc":"กระจกด้านทิศตะวันออกนำแสงแรกเข้าสู่ห้องนอนโดยตรง",
+    "moment2.time":"เที่ยงวัน · 12:00","moment2.room":"โรงจอดโชว์รูม","moment2.desc":"แสงกระจายจากด้านบน เหมาะแก่การชมและดูแลรถสะสม",
+    "moment3.time":"โกลเดนอาวร์ · 17:30","moment3.room":"สระว่ายน้ำกลางบ้าน","moment3.desc":"แสงอาทิตย์ต่ำทอดผ่านผิวน้ำตลอดช่วงบ่าย",
+    "moment4.time":"พลบค่ำ · 19:00","moment4.room":"ลิฟวิงฮอลล์","moment4.desc":"แสงสีอำพันเติมเต็มกระจกสูงสองชั้นเมื่อค่ำคืนเริ่มต้น",
+    "moment5.time":"กลางคืน · 21:00","moment5.room":"รูฟการ์เดน","moment5.desc":"ศาลาส่วนตัวเหนือเมือง แสงนวล เป็นส่วนตัว",
+    "specs.tag":"สเปค","specs.h2":"ตัวเลขและระบบ ครบในที่เดียว","specs.summary":"สรุป","specs.systems":"ระบบและสิ่งอำนวยความสะดวก",
+    "spec.bathrooms":"ห้องน้ำ","spec.kitchens":"ครัว","spec.garage":"ความจุโรงจอดรถ","spec.staff":"ห้องแม่บ้าน","spec.price":"ราคา",
+    "value.kitchens":"2 (โชว์ + ครัวไทย)","value.garage":"ปรับอากาศ 2 + กลางแจ้ง 3",
+    "amen.1":"แผงควบคุมบ้านอัจฉริยะ","amen.2":"หลังคาโซลาร์","amen.3":"ระบบควบคุมอากาศ","amen.4":"เซ็นเซอร์แม่เหล็กและแรงกระแทก","amen.5":"ระบบตรวจจับควัน/ความร้อน","amen.6":"รักษาความปลอดภัย 24 ชม.","amen.7":"ลิฟต์ส่วนตัว","amen.8":"เคาน์เตอร์คอนเซียร์จ","amen.9":"ที่จอดรถแขกมีหลังคา","amen.10":"เลี้ยงสัตว์ได้",
+    "location.tag":"ทำเล","location.h2":"บางนา ใกล้ใจกลางเมือง","location.traffic":"*ขึ้นอยู่กับสภาพการจราจร","location.open":"เปิดใน Google Maps →",
+    "enquire.tag":"เข้าชมแบบส่วนตัว","enquire.h2":"ปรึกษาที่ปรึกษาของเรา","enquire.desc":"แจ้งห้องว่าง แปลนพื้นที่ และเอกสารการลงทุนเฉพาะบุคคลเมื่อมีการร้องขอ",
+    "advisor.desc":"ที่ปรึกษาอาวุโสจะติดต่อกลับด้วยตนเองภายในหนึ่งวันทำการ พร้อมข้อมูลห้องว่างและราคา",
+    "btn.call":"โทร","btn.register":"ลงทะเบียน",
+    "form.name":"ชื่อ-นามสกุล","form.phone":"โทรศัพท์","form.email":"อีเมล","form.message":"ข้อความ","form.msgPlaceholder":"ฉันต้องการนัดเข้าชมแบบส่วนตัว…","form.submit":"ลงทะเบียนความสนใจ","form.ok":"ขอบคุณค่ะ — ที่ปรึกษาจะติดต่อกลับโดยเร็ว (แบบฟอร์มตัวอย่าง ยังไม่เชื่อมต่อระบบ)",
+    "footer.sample":"เทมเพลตตัวอย่าง · ข้อมูลตัวอย่างเท่านั้น"
+  },
+  ko:{
+    "brand.tagline":"에스테이트 컬렉션",
+    "nav.overview":"개요","nav.hours":"시간의 집","nav.specs":"사양","nav.location":"위치","nav.enquire":"문의",
+    "menu.projects":"프로젝트 <span class='arw'>→</span>","menu.properties":"매물 <span class='arw'>→</span>","menu.destinations":"지역 <span class='arw'>→</span>","menu.branded":"브랜디드 레지던스 <span class='arw'>→</span>","menu.lifestyle":"라이프스타일 &amp; 투자 <span class='arw'>→</span>","menu.about":"소개 <span class='arw'>→</span>","menu.contact":"문의하기 <span class='arw'>→</span>",
+    "menu.thisResidence":"이 레지던스","menu.destHeading":"지역",
+    "hero.eyebrow":"에스테이트 컬렉션 · 방콕","hero.stampLabel":"8세대 · 프라이빗 소유",
+    "hero.title":"하루의 <em>매 순간</em> 다르게 느껴지는 집.",
+    "label.status":"상태","label.bedrooms":"침실","label.land":"대지","label.signature":"시그니처",
+    "value.status":"준공 · 2024","value.signature":"클라이밋 개러지 · 중정 풀",
+    "overview.lede":"“대부분의 저택은 ‘사진이 잘 나오도록’ 설계됩니다. Aurelia Grove는 ‘살기 위한’ 집으로 설계되었습니다 — 시간마다, 빛마다.”",
+    "overview.p1":"Aurelia Grove는 방나–뜨랏 코리도의 프라이빗 소이에 자리한 3층 풀빌라 8세대로, 통로에서 고속도로로 약 18분 거리입니다. 각 세대는 2대 규모의 클라이밋 컨트롤 쇼룸 개러지와 라운지를 나란히 두어, 컬렉션과 생활공간이 하나의 층으로 이어집니다.",
+    "overview.p2":"위층은 층고 두 배의 리빙홀, 중정 풀, 그리고 전용 루프가든을 갖춘 최상층 스위트로 이어집니다 — 감상용이 아니라, 살기 위해 지어진 공간의 리듬입니다.",
+    "fact.developer":"개발사","fact.district":"지역","fact.ownership":"소유형태","fact.residences":"세대수","fact.landunit":"세대당 대지","fact.usable":"실사용 면적","fact.parking":"주차","fact.completion":"준공",
+    "value.freehold":"프리홀드(영구소유)","value.villas":"8세대","value.parking":"쇼룸 2 + 야외 3",
+    "hours.tag":"시간의 집","hours.h2":"하나의 집, <em>다섯</em> 개의 빛.","hours.desc":"Aurelia Grove의 모든 방은 특정 시간대에 맞춰 배치되었습니다 — 각 공간이 가장 빛나는 순간입니다.",
+    "moment1.time":"새벽 · 06:00","moment1.room":"마스터 스위트","moment1.desc":"동향 창이 첫 햇살을 침실로 곧장 들입니다.",
+    "moment2.time":"정오 · 12:00","moment2.room":"쇼룸 개러지","moment2.desc":"위에서 은은히 퍼지는 빛, 컬렉션 감상과 디테일링에 최적입니다.",
+    "moment3.time":"골든아워 · 17:30","moment3.room":"중정 풀","moment3.desc":"낮게 깔린 해가 오후 내내 수면 위를 가로지릅니다.",
+    "moment4.time":"저녁 · 19:00","moment4.room":"리빙홀","moment4.desc":"층고 두 배의 유리창에 앰버빛이 차오르며 홀이 저녁을 엽니다.",
+    "moment5.time":"밤 · 21:00","moment5.room":"루프가든","moment5.desc":"도시 위 프라이빗 파빌리온, 낮은 조도로 프라이버시를 지킵니다.",
+    "specs.tag":"사양","specs.h2":"숫자와 시스템을 한곳에.","specs.summary":"요약","specs.systems":"주거 시스템 &amp; 편의시설",
+    "spec.bathrooms":"욕실","spec.kitchens":"주방","spec.garage":"개러지 수용","spec.staff":"스태프룸","spec.price":"가격",
+    "value.kitchens":"2 (쇼 + 서비스)","value.garage":"클라이밋 2 + 야외 3",
+    "amen.1":"홈 허브 패널","amen.2":"솔라 루프","amen.3":"액티브 공기 제어","amen.4":"마그네틱 &amp; 충격 센서","amen.5":"연기 / 열 감지","amen.6":"24시간 보안","amen.7":"프라이빗 엘리베이터","amen.8":"컨시어지 데스크","amen.9":"지붕 있는 방문객 주차","amen.10":"반려동물 가능",
+    "location.tag":"위치","location.h2":"방나, 도심과 가까운 거리.","location.traffic":"*교통 상황에 따라 달라질 수 있습니다","location.open":"Google 지도에서 열기 →",
+    "enquire.tag":"프라이빗 뷰잉","enquire.h2":"어드바이저와 상담하세요.","enquire.desc":"잔여 세대, 평면도, 맞춤 투자 자료는 요청 시 제공됩니다.",
+    "advisor.desc":"시니어 어드바이저가 영업일 기준 1일 이내에 잔여 세대와 가격을 직접 안내드립니다.",
+    "btn.call":"전화","btn.register":"등록",
+    "form.name":"성함","form.phone":"연락처","form.email":"이메일","form.message":"메시지","form.msgPlaceholder":"프라이빗 뷰잉을 예약하고 싶습니다…","form.submit":"관심 등록","form.ok":"감사합니다 — 어드바이저가 곧 연락드리겠습니다. (데모 폼 · 아직 연결되지 않음)",
+    "footer.sample":"샘플 템플릿 · 예시 데이터"
+  },
+  zh:{
+    "brand.tagline":"尊邸系列",
+    "nav.overview":"概览","nav.hours":"一日光景","nav.specs":"规格","nav.location":"位置","nav.enquire":"咨询",
+    "menu.projects":"项目 <span class='arw'>→</span>","menu.properties":"房源 <span class='arw'>→</span>","menu.destinations":"目的地 <span class='arw'>→</span>","menu.branded":"品牌公寓 <span class='arw'>→</span>","menu.lifestyle":"生活方式与投资 <span class='arw'>→</span>","menu.about":"关于我们 <span class='arw'>→</span>","menu.contact":"联系我们 <span class='arw'>→</span>",
+    "menu.thisResidence":"本邸","menu.destHeading":"目的地",
+    "hero.eyebrow":"尊邸系列 · 曼谷","hero.stampLabel":"8 套 · 私人持有",
+    "hero.title":"一天中的<em>每一刻</em>，都别有韵味的家。",
+    "label.status":"状态","label.bedrooms":"卧室","label.land":"土地","label.signature":"特色",
+    "value.status":"已竣工 · 2024","value.signature":"恒温车库 · 庭院泳池",
+    "overview.lede":"“多数豪宅为镜头而设计，Aurelia Grove 却为居住而生——随每个时辰、每束光影而变。”",
+    "overview.p1":"Aurelia Grove 是一组八栋三层泳池别墅，坐落于曼那–达叻走廊旁的私密小巷内，经高速公路距通罗约十八分钟。每栋别墅将双车位恒温展示车库与相邻的会客厅相连，令收藏空间与生活空间共处同一楼层。",
+    "overview.p2":"拾级而上，是挑高双层的起居大厅、庭院泳池，以及配有专属屋顶花园的顶层套房——这是为居住而非仅为观赏而生的空间韵律。",
+    "fact.developer":"开发商","fact.district":"区域","fact.ownership":"产权","fact.residences":"户数","fact.landunit":"每户土地","fact.usable":"使用面积","fact.parking":"车位","fact.completion":"竣工",
+    "value.freehold":"永久产权","value.villas":"8 栋","value.parking":"展示 2 + 露天 3",
+    "hours.tag":"一日光景","hours.h2":"一座宅邸，<em>五种</em>光影。","hours.desc":"Aurelia Grove 的每个房间都为特定时辰而设——此刻，正是它们最动人的时候。",
+    "moment1.time":"黎明 · 06:00","moment1.room":"主卧套房","moment1.desc":"朝东玻璃将第一缕晨光直引入卧室。",
+    "moment2.time":"正午 · 12:00","moment2.room":"展示车库","moment2.desc":"顶部漫射光线，最适观赏与养护藏车。",
+    "moment3.time":"黄金时刻 · 17:30","moment3.room":"庭院泳池","moment3.desc":"低垂的夕阳整个午后掠过水面。",
+    "moment4.time":"暮色 · 19:00","moment4.room":"起居大厅","moment4.desc":"琥珀色光线漫入双层挑高玻璃，大厅由此迎来夜晚。",
+    "moment5.time":"夜晚 · 21:00","moment5.room":"屋顶花园","moment5.desc":"城市之上的私人凉亭，灯光柔和，尽享私密。",
+    "specs.tag":"规格","specs.h2":"数据与系统，一览无余。","specs.summary":"概要","specs.systems":"住宅系统与设施",
+    "spec.bathrooms":"卫浴","spec.kitchens":"厨房","spec.garage":"车库容量","spec.staff":"佣人房","spec.price":"价格",
+    "value.kitchens":"2（展示 + 服务）","value.garage":"恒温 2 + 露天 3",
+    "amen.1":"智能家居面板","amen.2":"太阳能屋顶","amen.3":"主动空气控制","amen.4":"磁力与震动传感","amen.5":"烟雾／热感探测","amen.6":"24 小时安保","amen.7":"私人电梯","amen.8":"礼宾台","amen.9":"带顶访客车位","amen.10":"允许养宠",
+    "location.tag":"位置","location.h2":"曼那，与城市近在咫尺。","location.traffic":"*视交通状况而定","location.open":"在 Google 地图打开 →",
+    "enquire.tag":"私人看房","enquire.h2":"与顾问洽谈。","enquire.desc":"房源状况、平面图及专属投资简介均可应索取提供。",
+    "advisor.desc":"资深顾问将于一个工作日内亲自回复，提供房源与报价。",
+    "btn.call":"致电","btn.register":"登记",
+    "form.name":"姓名","form.phone":"电话","form.email":"邮箱","form.message":"留言","form.msgPlaceholder":"我想预约一次私人看房…","form.submit":"登记意向","form.ok":"感谢您——顾问将尽快与您联系。（示例表单 · 尚未接入）",
+    "footer.sample":"示例模板 · 仅为占位数据"
+  },
+  ja:{
+    "brand.tagline":"エステートコレクション",
+    "nav.overview":"概要","nav.hours":"一日の情景","nav.specs":"仕様","nav.location":"ロケーション","nav.enquire":"お問い合わせ",
+    "menu.projects":"プロジェクト <span class='arw'>→</span>","menu.properties":"物件 <span class='arw'>→</span>","menu.destinations":"エリア <span class='arw'>→</span>","menu.branded":"ブランドレジデンス <span class='arw'>→</span>","menu.lifestyle":"ライフスタイルと投資 <span class='arw'>→</span>","menu.about":"会社概要 <span class='arw'>→</span>","menu.contact":"お問い合わせ <span class='arw'>→</span>",
+    "menu.thisResidence":"この邸宅","menu.destHeading":"エリア",
+    "hero.eyebrow":"エステートコレクション · バンコク","hero.stampLabel":"全8邸・プライベート保有",
+    "hero.title":"一日の<em>どの時間</em>も、違う表情を見せる家。",
+    "label.status":"ステータス","label.bedrooms":"ベッドルーム","label.land":"敷地","label.signature":"シグネチャー",
+    "value.status":"竣工済 · 2024","value.signature":"空調ガレージ · 中庭プール",
+    "overview.lede":"「多くの邸宅は『写真映え』で設計されます。Aurelia Grove は『暮らし』のために設計されました——時間ごと、光ごとに。」",
+    "overview.p1":"Aurelia Grove は、バンナー–トラート回廊沿いのプライベートな路地に佇む三階建プールヴィラ全8邸のコレクション。トンローから高速で約18分。各邸は2台分の空調ショールームガレージとラウンジを隣接させ、コレクションと居住空間がひとつのフロアで連続します。",
+    "overview.p2":"上階へ進むと、天井高2層分のリビングホール、中庭プール、専用ルーフガーデンを備えた最上階スイートへ。眺めるためではなく、暮らすために設えられた空間のリズムです。",
+    "fact.developer":"デベロッパー","fact.district":"エリア","fact.ownership":"所有形態","fact.residences":"邸数","fact.landunit":"一邸あたり敷地","fact.usable":"有効面積","fact.parking":"駐車","fact.completion":"竣工",
+    "value.freehold":"フリーホールド（永久所有）","value.villas":"全8邸","value.parking":"ショールーム2 + 屋外3",
+    "hours.tag":"一日の情景","hours.h2":"一邸に、<em>五つ</em>の光。","hours.desc":"Aurelia Grove の各部屋は、特定の時間のために配置されています——それぞれが最も輝く瞬間です。",
+    "moment1.time":"夜明け · 06:00","moment1.room":"マスタースイート","moment1.desc":"東向きのガラスが、最初の光を寝室へまっすぐ届けます。",
+    "moment2.time":"正午 · 12:00","moment2.room":"ショールームガレージ","moment2.desc":"天井からの拡散光。コレクションの鑑賞とディテーリングに最適。",
+    "moment3.time":"ゴールデンアワー · 17:30","moment3.room":"中庭プール","moment3.desc":"低い陽が午後を通して水面を横切ります。",
+    "moment4.time":"黄昏 · 19:00","moment4.room":"リビングホール","moment4.desc":"琥珀色の光が2層分のガラスを満たし、ホールが夜を迎えます。",
+    "moment5.time":"夜 · 21:00","moment5.room":"ルーフガーデン","moment5.desc":"街の上のプライベートパビリオン。低い灯りでプライバシーを守ります。",
+    "specs.tag":"仕様","specs.h2":"数値とシステムを、ひとつに。","specs.summary":"サマリー","specs.systems":"住宅システム＆設備",
+    "spec.bathrooms":"バスルーム","spec.kitchens":"キッチン","spec.garage":"ガレージ収容","spec.staff":"スタッフルーム","spec.price":"価格",
+    "value.kitchens":"2（ショー + サービス）","value.garage":"空調2 + 屋外3",
+    "amen.1":"ホームハブパネル","amen.2":"ソーラールーフ","amen.3":"アクティブ空調制御","amen.4":"マグネット＆衝撃センサー","amen.5":"煙／熱感知","amen.6":"24時間セキュリティ","amen.7":"プライベートエレベーター","amen.8":"コンシェルジュデスク","amen.9":"屋根付ゲスト駐車","amen.10":"ペット可",
+    "location.tag":"ロケーション","location.h2":"バンナー、都心へすぐ。","location.traffic":"*交通状況により変動します","location.open":"Google マップで開く →",
+    "enquire.tag":"プライベート内覧","enquire.h2":"アドバイザーにご相談ください。","enquire.desc":"空き状況、フロアプラン、個別の投資資料はご請求に応じてご提供します。",
+    "advisor.desc":"シニアアドバイザーが1営業日以内に、空き状況と価格を直接ご案内します。",
+    "btn.call":"電話","btn.register":"登録",
+    "form.name":"お名前","form.phone":"電話番号","form.email":"メール","form.message":"メッセージ","form.msgPlaceholder":"プライベート内覧を希望します…","form.submit":"興味を登録","form.ok":"ありがとうございます——アドバイザーより追ってご連絡します。（デモフォーム · 未接続）",
+    "footer.sample":"サンプルテンプレート · プレースホルダーデータのみ"
+  }
+};
+
+/* English source captured from the initial DOM so we can switch back */
+const EN = {};
+document.querySelectorAll('[data-i18n]').forEach(el=>{ EN[el.dataset.i18n] = el.textContent; });
+document.querySelectorAll('[data-i18n-html]').forEach(el=>{ EN['html:'+el.dataset.i18nHtml] = el.innerHTML; });
+document.querySelectorAll('[data-i18n-ph]').forEach(el=>{ EN['ph:'+el.dataset.i18nPh] = el.getAttribute('placeholder'); });
+
+const CODES = {en:'EN',th:'TH',ko:'KO',zh:'中文',ja:'日本'};
+
+function applyLang(lang){
+  const dict = I18N[lang] || {};
+  document.querySelectorAll('[data-i18n]').forEach(el=>{
+    const k = el.dataset.i18n;
+    const v = (lang==='en') ? EN[k] : (dict[k] ?? EN[k]);
+    if(v!=null){ if(/[<&]/.test(v)) el.innerHTML = v; else el.textContent = v; }
+  });
+  document.querySelectorAll('[data-i18n-html]').forEach(el=>{
+    const k = el.dataset.i18nHtml;
+    const v = (lang==='en') ? EN['html:'+k] : (dict[k] ?? EN['html:'+k]);
+    if(v!=null) el.innerHTML = v;
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el=>{
+    const k = el.dataset.i18nPh;
+    const v = (lang==='en') ? EN['ph:'+k] : (dict[k] ?? EN['ph:'+k]);
+    if(v!=null) el.setAttribute('placeholder', v);
+  });
+  document.documentElement.lang = lang;
+  document.getElementById('langCode').textContent = CODES[lang] || 'EN';
+  document.querySelectorAll('.lang-menu button').forEach(b=> b.classList.toggle('active', b.dataset.lang===lang));
+  try{ localStorage.setItem('qp_lang', lang); }catch(e){}
+}
+
+function applyCur(cur){
+  document.querySelectorAll('[data-thb]').forEach(el=>{
+    el.textContent = (cur==='usd') ? el.dataset.usd : el.dataset.thb;
+  });
+  document.querySelectorAll('.cur button').forEach(b=> b.classList.toggle('active', b.dataset.cur===cur));
+  try{ localStorage.setItem('qp_cur', cur); }catch(e){}
+}
+
+/* ---- language dropdown ---- */
+const lang = document.getElementById('lang');
+document.getElementById('langBtn').addEventListener('click', (e)=>{ e.stopPropagation(); lang.classList.toggle('open'); });
+document.addEventListener('click', ()=> lang.classList.remove('open'));
+document.querySelectorAll('.lang-menu button').forEach(b=>{
+  b.addEventListener('click', ()=>{ applyLang(b.dataset.lang); lang.classList.remove('open'); });
+});
+/* ---- currency ---- */
+document.querySelectorAll('.cur button').forEach(b=>{
+  b.addEventListener('click', ()=> applyCur(b.dataset.cur));
+});
+
+/* ---- slide-out menu ---- */
+const menu = document.getElementById('menu');
+const burger = document.getElementById('burger');
+function openMenu(){ menu.classList.add('open'); burger.setAttribute('aria-expanded','true'); document.body.style.overflow='hidden'; }
+function closeMenu(){ menu.classList.remove('open'); burger.setAttribute('aria-expanded','false'); document.body.style.overflow=''; }
+burger.addEventListener('click', openMenu);
+document.getElementById('menuClose').addEventListener('click', closeMenu);
+document.querySelectorAll('#menu [data-menu-anchor] a, #menu .menu-primary a').forEach(a=>{
+  a.addEventListener('click', ()=> setTimeout(closeMenu, 60));
+});
+document.addEventListener('keydown', (e)=>{ if(e.key==='Escape') closeMenu(); });
+
+/* ---- restore saved prefs ---- */
+try{
+  applyLang(localStorage.getItem('qp_lang') || 'en');
+  applyCur(localStorage.getItem('qp_cur') || 'thb');
+}catch(e){ applyLang('en'); applyCur('thb'); }
+</script>
 
 </body>
 </html>
